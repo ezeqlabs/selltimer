@@ -1,8 +1,23 @@
 <resources>
     <string name="app_name">SellTimer</string>
 
+    <string name="title_clientes_sidemenu">Clientes</string>
+    <string name="ver_clientes_sidemenu">Ver clientes</string>
+    <string name="novo_cliente_sidemenu">Novo cliente</string>
+
+    <string name="title_contatos_sidemenu">Contatos</string>
+    <string name="ver_contatos_sidemenu">Ver contatos</string>
+    <string name="novo_contato_sidemenu">Novo contato</string>
+
+    <string name="sobre_sidemenu">Sobre</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configurações</string>
+
+    <string name="contatos_hoje">Clientes para ligar hoje</string>
+    <string name="contatos_semana">Clientes para ligar essa semana</string>
+    <string name="contatos_mes">Clientes para ligar esse mes</string>
+
 </resources>

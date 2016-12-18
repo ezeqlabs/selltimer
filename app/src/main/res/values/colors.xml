@@ -3,4 +3,19 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="verde">#4CAF50</color>
+    <color name="verdeEscuro">#2E7D32</color>
+    <color name="verdeClaro">#81C784</color>
+
+    <color name="branco">#FFF</color>
+
+    <color name="vermelhoCrimson">#DC143C</color>
+    <color name="vermelhoPink">#FFC0CB</color>
+    
+    <color name="amareloGoldenrod">#DAA520</color>
+    <color name="amareloLightYellow">#FFFFE0</color>
+    
+    <color name="azulSteelBlue">#4682B4</color>
+    <color name="azulLightBlue">#ADD8E6</color>
 </resources>

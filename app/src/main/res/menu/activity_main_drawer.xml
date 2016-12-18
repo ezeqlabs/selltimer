@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
-
-    <item android:title="Communicate">
+    <item android:title="@string/title_clientes_sidemenu">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/ver_clientes_sidemenu"
+                android:icon="@android:drawable/ic_dialog_dialer"
+                android:title="@string/ver_clientes_sidemenu" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/novo_cliente_sidemenu"
+                android:icon="@drawable/ic_add"
+                android:title="@string/novo_cliente_sidemenu" />
         </menu>
     </item>
+
+    <item android:title="@string/title_contatos_sidemenu">
+        <menu>
+            <item
+                android:id="@+id/ver_contatos_sidemenu"
+                android:icon="@android:drawable/ic_dialog_dialer"
+                android:title="@string/ver_contatos_sidemenu" />
+
+            <item
+                android:id="@+id/novo_contato_sidemenu"
+                android:icon="@drawable/ic_add"
+                android:title="@string/novo_contato_sidemenu" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/config_sidemenu"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/action_settings" />
+
+    <item
+        android:id="@+id/info_sidemenu"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="@string/sobre_sidemenu" />
 
 </menu>
