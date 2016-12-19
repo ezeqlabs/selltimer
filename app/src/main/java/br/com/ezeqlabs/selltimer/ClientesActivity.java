@@ -18,7 +18,6 @@ import java.util.List;
 
 public class ClientesActivity extends AppCompatActivity {
     private ListView listView;
-    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +75,6 @@ public class ClientesActivity extends AppCompatActivity {
                 startActivity(cadastro);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        this.menu = menu;
-        return false;
     }
 
     @Override
