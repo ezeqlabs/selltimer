@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SellTimer</string>
 
+    <!-- MENUS -->
     <string name="title_clientes_sidemenu">Clientes</string>
     <string name="ver_clientes_sidemenu">Ver clientes</string>
     <string name="novo_cliente_sidemenu">Novo cliente</string>
@@ -11,13 +12,28 @@
 
     <string name="sobre_sidemenu">Sobre</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Abrir navigation drawer</string>
+    <string name="navigation_drawer_close">Fechar navigation drawer</string>
 
     <string name="action_settings">Configurações</string>
+    <string name="action_salvar">Salvar</string>
 
+    <!-- MAIN ACTIVITY -->
     <string name="contatos_hoje">Clientes para ligar hoje</string>
     <string name="contatos_semana">Clientes para ligar essa semana</string>
     <string name="contatos_mes">Clientes para ligar esse mes</string>
+
+    <!-- CLIENTES ACTIVITY -->
+    <string name="title_activity_clientes">Clientes</string>
+
+    <!-- CADASTRO CLIENTES ACTIVITY -->
+    <string name="title_activity_cadastro_clientes">Cadastro de Cliente</string>
+    <string name="label_nome">Nome</string>
+    <string name="label_endereco">Endereço</string>
+    <string name="novo_endereco"><u>+ Adicionar endereço</u></string>
+    <string name="label_telefone">Telefone</string>
+    <string name="novo_telefone"><u>+ Adicionar telefone</u></string>
+    <string name="label_email">Email</string>
+    <string name="novo_email"><u>+ Adicionar email</u></string>
 
 </resources>

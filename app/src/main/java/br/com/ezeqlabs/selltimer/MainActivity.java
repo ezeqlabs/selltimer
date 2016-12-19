@@ -1,5 +1,6 @@
 package br.com.ezeqlabs.selltimer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -71,19 +72,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -94,8 +90,24 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent tela = null;
+
+        switch (id){
+            // VER CLIENTES
+            case R.id.ver_clientes_sidemenu:
+                tela = new Intent(this, ClientesActivity.class);
+                break;
+
+            // CADASTRO DE CLIENTES
+            case R.id.novo_cliente_sidemenu:
+                tela = new Intent(this, CadastroClientesActivity.class);
+                break;
+        }
+
+        if(tela != null){
+            startActivity(tela);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
