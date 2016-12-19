@@ -17,6 +17,8 @@
 
     <string name="action_settings">Configurações</string>
     <string name="action_salvar">Salvar</string>
+    <string name="action_editar">Editar</string>
+    <string name="action_deletar">Deletar</string>
 
     <!-- MAIN ACTIVITY -->
     <string name="contatos_hoje">Clientes para ligar hoje</string>
@@ -35,5 +37,8 @@
     <string name="novo_telefone"><u>+ Adicionar telefone</u></string>
     <string name="label_email">Email</string>
     <string name="novo_email"><u>+ Adicionar email</u></string>
+
+    <!-- DETALHE CLIENTE ACTIVITY -->
+    <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>
 
 </resources>

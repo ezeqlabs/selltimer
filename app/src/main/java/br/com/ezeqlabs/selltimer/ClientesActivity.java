@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class ClientesActivity extends AppCompatActivity {
     private ListView listView;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,13 @@ public class ClientesActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent detalhe = new Intent(ClientesActivity.this, DetalheClienteActivity.class);
+                startActivity(detalhe);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_clientes);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +76,12 @@ public class ClientesActivity extends AppCompatActivity {
                 startActivity(cadastro);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        this.menu = menu;
+        return false;
     }
 
     @Override

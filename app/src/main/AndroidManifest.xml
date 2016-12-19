@@ -25,6 +25,8 @@
         <activity
             android:name=".CadastroClientesActivity"
             android:label="@string/title_activity_cadastro_clientes" />
+        <activity android:name=".DetalheClienteActivity"
+            android:label="@string/title_activity_detalhe_cliente"></activity>
     </application>
 
 </manifest>

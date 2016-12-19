@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
 
     private ListView listViewHoje, listViewSemana, listViewMes;
 
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity
         listViewHoje.setAdapter(adapter);
         listViewSemana.setAdapter(adapter);
         listViewMes.setAdapter(adapter);
+
+        listViewHoje.setOnItemClickListener(this);
+        listViewSemana.setOnItemClickListener(this);
+        listViewMes.setOnItemClickListener(this);
     }
 
     @Override
@@ -112,5 +117,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent detalhe = new Intent(MainActivity.this, DetalheClienteActivity.class);
+        startActivity(detalhe);
     }
 }
