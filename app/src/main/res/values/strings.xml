@@ -41,4 +41,7 @@
     <!-- DETALHE CLIENTE ACTIVITY -->
     <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>
 
+    <!-- DETALHE CONTATO ACTIVITY -->
+    <string name="title_activity_detalhe_contato">Detalhe do contato</string>
+
 </resources>
