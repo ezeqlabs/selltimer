@@ -14,20 +14,6 @@
         </menu>
     </item>
 
-    <item android:title="@string/title_contatos_sidemenu">
-        <menu>
-            <item
-                android:id="@+id/ver_contatos_sidemenu"
-                android:icon="@android:drawable/ic_dialog_dialer"
-                android:title="@string/ver_contatos_sidemenu" />
-
-            <item
-                android:id="@+id/novo_contato_sidemenu"
-                android:icon="@drawable/ic_add"
-                android:title="@string/novo_contato_sidemenu" />
-        </menu>
-    </item>
-
     <item
         android:id="@+id/config_sidemenu"
         android:icon="@drawable/ic_settings"
