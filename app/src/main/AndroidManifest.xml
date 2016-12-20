@@ -30,7 +30,10 @@
             android:label="@string/title_activity_detalhe_cliente" />
         <activity
             android:name=".DetalheContatoActivity"
-            android:label="@string/title_activity_detalhe_contato"/>
+            android:label="@string/title_activity_detalhe_contato" />
+        <activity
+            android:name=".CadastroContatoActivity"
+            android:label="@string/title_activity_cadastro_contato" />
     </application>
 
 </manifest>

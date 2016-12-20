@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="tipos_de_interesse">
+        <item>@string/label_interesse</item>
+        <item>Muito interessado</item>
+        <item>Interessado</item>
+        <item>Pouco interessado</item>
+    </string-array>
+</resources>

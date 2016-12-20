@@ -38,6 +38,12 @@
     <string name="label_email">E-mail</string>
     <string name="novo_email"><u>+ Adicionar e-mail</u></string>
 
+    <!-- CADASTRO CONTATO ACTIVITY -->
+    <string name="title_activity_cadastro_contato">Cadastro de contato</string>
+    <string name="label_data">Data do contato</string>
+    <string name="label_descricao">Descrição do contato</string>
+    <string name="label_interesse">Selecione o tipo de interesse</string>
+
     <!-- DETALHE CLIENTE ACTIVITY -->
     <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>
     <string name="telefones_detalhe_cliente">Telefones:</string>

@@ -113,6 +113,7 @@
                 android:text="@string/btn_adicionar_contato"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:onClick="adicionaContato"
                 />
 
         </LinearLayout>

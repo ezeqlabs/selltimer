@@ -65,4 +65,9 @@ public class DetalheClienteActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void adicionaContato(View v){
+        Intent cadastroContato = new Intent(this, CadastroContatoActivity.class);
+        startActivity(cadastroContato);
+    }
 }
