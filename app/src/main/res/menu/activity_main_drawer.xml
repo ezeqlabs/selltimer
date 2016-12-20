@@ -15,11 +15,6 @@
     </item>
 
     <item
-        android:id="@+id/config_sidemenu"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/action_settings" />
-
-    <item
         android:id="@+id/info_sidemenu"
         android:icon="@android:drawable/ic_dialog_info"
         android:title="@string/sobre_sidemenu" />

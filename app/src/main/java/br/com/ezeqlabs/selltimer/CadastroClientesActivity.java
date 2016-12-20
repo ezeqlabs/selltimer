@@ -1,5 +1,6 @@
 package br.com.ezeqlabs.selltimer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -58,6 +59,8 @@ public class CadastroClientesActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
+                Intent detalhe = new Intent(this, DetalheClienteActivity.class);
+                startActivity(detalhe);
                 return false;
 
             default:
