@@ -3,27 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.ezeqlabs.selltimer.DetalheClienteActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
             android:text="Cliente 01"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            android:padding="16dp"
+            android:background="@color/azulAliceBlue"
             android:text="Telefones:"/>
 
         <TextView
@@ -47,7 +51,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            android:padding="16dp"
+            android:background="@color/azulAliceBlue"
             android:text="Endereços:"/>
 
         <TextView
@@ -71,7 +78,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            android:padding="16dp"
+            android:background="@color/azulAliceBlue"
             android:text="Emails:"/>
 
         <TextView
@@ -92,17 +102,45 @@
             android:paddingLeft="16dp"
             android:text="teste@teste.com.br"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:text="Contatos"/>
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="5dp"
+            android:background="@color/azulAliceBlue"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contatos"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adicionar"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                />
+
+        </LinearLayout>
+
 
         <ListView
-            android:paddingTop="16dp"
+            android:layout_marginTop="16dp"
             android:id="@+id/listview_contatos"
             android:layout_width="match_parent"
-            android:layout_height="140dp" />
+            android:layout_height="140dp"
+            />
 
     </LinearLayout>
 
