@@ -16,19 +16,12 @@
         >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
+            style="@style/TituloCliente"
             android:text="Cliente 01"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp"
-            android:padding="16dp"
-            android:background="@color/azulAliceBlue"
-            android:text="Telefones:"/>
+            style="@style/TituloInformacao"
+            android:text="@string/telefones_detalhe_cliente"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -49,13 +42,8 @@
             android:text="1122-3344"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp"
-            android:padding="16dp"
-            android:background="@color/azulAliceBlue"
-            android:text="Endereços:"/>
+            style="@style/TituloInformacao"
+            android:text="@string/enderecos_detalhe_cliente"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -76,13 +64,8 @@
             android:text="Avenida Paulista, 1234"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp"
-            android:padding="16dp"
-            android:background="@color/azulAliceBlue"
-            android:text="Emails:"/>
+            style="@style/TituloInformacao"
+            android:text="@string/emails_detalhe_cliente"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -106,17 +89,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="@dimen/separador_titulo_informacao"
+            android:paddingLeft="@dimen/margem_titulo_informacao"
+            android:paddingRight="@dimen/margem_titulo_informacao"
+            android:paddingBottom="@dimen/separador_titulo_informacao"
             android:background="@color/azulAliceBlue"
             android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contatos"/>
+                android:text="@string/contatos_detalhe_cliente"/>
 
             <View
                 android:layout_width="0dp"
@@ -127,7 +110,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adicionar"
+                android:text="@string/btn_adicionar_contato"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 />

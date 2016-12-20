@@ -35,11 +35,16 @@
     <string name="novo_endereco"><u>+ Adicionar endereço</u></string>
     <string name="label_telefone">Telefone</string>
     <string name="novo_telefone"><u>+ Adicionar telefone</u></string>
-    <string name="label_email">Email</string>
-    <string name="novo_email"><u>+ Adicionar email</u></string>
+    <string name="label_email">E-mail</string>
+    <string name="novo_email"><u>+ Adicionar e-mail</u></string>
 
     <!-- DETALHE CLIENTE ACTIVITY -->
     <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>
+    <string name="telefones_detalhe_cliente">Telefones:</string>
+    <string name="enderecos_detalhe_cliente">Endereços:</string>
+    <string name="emails_detalhe_cliente">E-mails:</string>
+    <string name="contatos_detalhe_cliente">Contatos:</string>
+    <string name="btn_adicionar_contato">Adicionar</string>
 
     <!-- DETALHE CONTATO ACTIVITY -->
     <string name="title_activity_detalhe_contato">Detalhe do contato</string>
