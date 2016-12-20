@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SellTimer</string>
+    <string name="ezeqlabs">EzeqLabs</string>
 
     <!-- MENUS -->
     <string name="title_clientes_sidemenu">Clientes</string>
@@ -57,5 +58,12 @@
     <string name="data_detalhe_contato">Data do contato:</string>
     <string name="interesse_detalhe_contato">Nível de interesse:</string>
     <string name="descricao_detalhe_contato">Descrição do contato:</string>
+
+    <!-- SOBRE ACTIVITY -->
+    <string name="title_activity_sobre">Sobre o aplicativo</string>
+    <string name="sobre_app">Sobre o aplicativo</string>
+    <string name="versao_sobre_app">Você está na versão</string>
+    <string name="desenvolvido_sobre_app">Desenvolvido por</string>
+    <string name="feedback_sobre_app">Enviar feedback</string>
 
 </resources>

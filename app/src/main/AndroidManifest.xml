@@ -34,6 +34,9 @@
         <activity
             android:name=".CadastroContatoActivity"
             android:label="@string/title_activity_cadastro_contato" />
+        <activity
+            android:name=".SobreActivity"
+            android:label="@string/title_activity_sobre"/>
     </application>
 
 </manifest>

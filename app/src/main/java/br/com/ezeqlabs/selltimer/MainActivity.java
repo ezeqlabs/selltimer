@@ -102,6 +102,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.novo_cliente_sidemenu:
                 tela = new Intent(this, CadastroClientesActivity.class);
                 break;
+
+            // SOBRE
+            case R.id.info_sidemenu:
+                tela = new Intent(this, SobreActivity.class);
+                break;
         }
 
         if(tela != null){
