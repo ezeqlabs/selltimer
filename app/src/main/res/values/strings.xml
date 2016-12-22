@@ -64,6 +64,14 @@
     <string name="sobre_app">Sobre o aplicativo</string>
     <string name="versao_sobre_app">Você está na versão</string>
     <string name="desenvolvido_sobre_app">Desenvolvido por</string>
-    <string name="feedback_sobre_app">Enviar feedback</string>
+    <string name="feedback_sobre_app">Dúvidas, sugestões ou críticas?</string>
+    <string name="lbl_titulo_feedback">Assunto</string>
+    <string name="lbl_tipo_feedback">Escolha o tipo de opinião</string>
+    <string name="lbl_descricao_feedback">Conte-nos sua opinião</string>
+    <string name="enviar_dialog_feedback">Enviar</string>
+    <string name="cancelar_dialog_feedback">Cancelar</string>
+    <string name="assunto_email_feedback">[SellTimer - %1$s] %2$s</string>
+    <string name="titulo_chooser_feedback">Enviar %1$s usando:</string>
+    <string name="erro_chooser_feedback">Nenhum aplicativo de envio de e-mail encontrado</string>
 
 </resources>

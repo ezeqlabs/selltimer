@@ -5,4 +5,10 @@
         <item>Interessado</item>
         <item>Pouco interessado</item>
     </string-array>
+
+    <string-array name="tipos_de_feedback">
+        <item>Crítica</item>
+        <item>Dúvida</item>
+        <item>Sugestão</item>
+    </string-array>
 </resources>
