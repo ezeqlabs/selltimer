@@ -45,6 +45,7 @@
             />
 
         <Button
+            android:id="@+id/btnFeedback"
             style="@style/TituloInformacao"
             android:text="@string/feedback_sobre_app"
             android:gravity="center"
