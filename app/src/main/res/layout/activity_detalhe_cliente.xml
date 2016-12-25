@@ -20,6 +20,7 @@
             style="@style/TituloCliente"/>
 
         <TextView
+            android:id="@+id/titulo_telefone_detalhe"
             style="@style/TituloInformacao"
             android:text="@string/telefones_detalhe_cliente"/>
 
@@ -31,6 +32,7 @@
             android:orientation="vertical" />
 
         <TextView
+            android:id="@+id/titulo_endereco_detalhe"
             style="@style/TituloInformacao"
             android:text="@string/enderecos_detalhe_cliente"/>
 
@@ -42,6 +44,7 @@
             android:orientation="vertical" />
 
         <TextView
+            android:id="@+id/titulo_emails_detalhes"
             style="@style/TituloInformacao"
             android:text="@string/emails_detalhe_cliente"/>
 

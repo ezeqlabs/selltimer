@@ -45,9 +45,13 @@ public class ClienteHelper {
         List<Endereco> listEnderecos = new ArrayList<>();
 
         for(EditText editTextEndereco : enderecos){
-            Endereco endereco = new Endereco();
-            endereco.setEndereco(editTextEndereco.getText().toString());
-            listEnderecos.add(endereco);
+            String texto = editTextEndereco.getText().toString();
+
+            if(!texto.equalsIgnoreCase("")){
+                Endereco endereco = new Endereco();
+                endereco.setEndereco(texto);
+                listEnderecos.add(endereco);
+            }
         }
 
         return listEnderecos;
@@ -57,9 +61,13 @@ public class ClienteHelper {
         List<Telefone> listTelefones = new ArrayList<>();
 
         for(EditText editTextTelefone : telefones){
-            Telefone telefone = new Telefone();
-            telefone.setTelefone(editTextTelefone.getText().toString());
-            listTelefones.add(telefone);
+            String texto = editTextTelefone.getText().toString();
+
+            if(!texto.equalsIgnoreCase("")){
+                Telefone telefone = new Telefone();
+                telefone.setTelefone(texto);
+                listTelefones.add(telefone);
+            }
         }
 
         return listTelefones;
@@ -69,9 +77,13 @@ public class ClienteHelper {
         List<Email> listEmail = new ArrayList<>();
 
         for(EditText editTextEmail : emails){
-            Email email = new Email();
-            email.setEmail(editTextEmail.getText().toString());
-            listEmail.add(email);
+            String texto = editTextEmail.getText().toString();
+
+            if(!texto.equalsIgnoreCase("")){
+                Email email = new Email();
+                email.setEmail(texto);
+                listEmail.add(email);
+            }
         }
 
         return listEmail;

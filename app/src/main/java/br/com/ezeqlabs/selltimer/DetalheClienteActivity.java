@@ -26,6 +26,9 @@ import br.com.ezeqlabs.selltimer.utils.Constantes;
 public class DetalheClienteActivity extends AppCompatActivity {
     private ListView listView;
     private LinearLayout llEndereco, llTelefone, llEmail;
+    private List<Endereco> enderecos;
+    private List<Telefone> telefones;
+    private List<Email> emails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +44,20 @@ public class DetalheClienteActivity extends AppCompatActivity {
         llEmail = (LinearLayout) findViewById(R.id.container_emails_detalhe);
 
         Cliente cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
-        List<Endereco> enderecos = cliente.getEnderecos();
-        List<Telefone> telefones = cliente.getTelefones();
-        List<Email> emails = cliente.getEmails();
+        enderecos = cliente.getEnderecos();
+        telefones = cliente.getTelefones();
+        emails = cliente.getEmails();
 
         TextView nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
         nomeCliente.setText(cliente.getNome());
 
-        for(Endereco endereco : enderecos){
-            geraEndereco(endereco);
-        }
+        preparaEnderecos();
+        preparaTelefone();
+        preparaEmail();
 
-        for(Telefone telefone : telefones){
-            geraTelefone(telefone);
-        }
 
-        for(Email email : emails){
-            geraEmail(email);
-        }
+
+
 
         List<String> contatos = new ArrayList<>();
         contatos.add("19/12/2016 - Muito interessado");
@@ -94,6 +93,9 @@ public class DetalheClienteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
+                Intent listagem = new Intent(this, ClientesActivity.class);
+                startActivity(listagem);
+                
                 this.finish();
                 return true;
             default:
@@ -124,5 +126,38 @@ public class DetalheClienteActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setText(texto);
         return textView;
+    }
+
+    private void preparaEnderecos(){
+        if(enderecos.size() > 0){
+            for(Endereco endereco : enderecos){
+                geraEndereco(endereco);
+            }
+        }else{
+            findViewById(R.id.titulo_endereco_detalhe).setVisibility(View.GONE);
+            findViewById(R.id.container_enderecos_detalhe).setVisibility(View.GONE);
+        }
+    }
+
+    private void preparaTelefone(){
+        if(telefones.size() > 0){
+            for(Telefone telefone : telefones){
+                geraTelefone(telefone);
+            }
+        }else{
+            findViewById(R.id.titulo_telefone_detalhe).setVisibility(View.GONE);
+            findViewById(R.id.container_telefones_detalhe).setVisibility(View.GONE);
+        }
+    }
+
+    private void preparaEmail(){
+        if(emails.size() > 0){
+            for(Email email : emails){
+                geraEmail(email);
+            }
+        }else{
+            findViewById(R.id.titulo_emails_detalhes).setVisibility(View.GONE);
+            findViewById(R.id.container_emails_detalhe).setVisibility(View.GONE);
+        }
     }
 }

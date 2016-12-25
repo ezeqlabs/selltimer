@@ -65,6 +65,9 @@ public class ClientesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
+                Intent dashboard = new Intent(this, MainActivity.class);
+                startActivity(dashboard);
+
                 this.finish();
                 return true;
             default:
