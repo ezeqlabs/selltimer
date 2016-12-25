@@ -17,8 +17,7 @@
 
         <TextView
             android:id="@+id/nome_cliente_detalhe"
-            style="@style/TituloCliente"
-            android:text="Cliente 01"/>
+            style="@style/TituloCliente"/>
 
         <TextView
             style="@style/TituloInformacao"
@@ -46,23 +45,12 @@
             style="@style/TituloInformacao"
             android:text="@string/enderecos_detalhe_cliente"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/container_enderecos_detalhe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
-            android:text="Avenida Paulista, 1234"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="Avenida Paulista, 1234"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="Avenida Paulista, 1234"/>
+            android:orientation="vertical" />
 
         <TextView
             style="@style/TituloInformacao"

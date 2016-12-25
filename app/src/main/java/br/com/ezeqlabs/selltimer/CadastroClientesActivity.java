@@ -13,13 +13,21 @@ import android.widget.Toast;
 
 import com.onurciner.toastox.ToastOX;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.ezeqlabs.selltimer.dao.ClienteDAO;
+import br.com.ezeqlabs.selltimer.dao.EnderecoDAO;
 import br.com.ezeqlabs.selltimer.helpers.ClienteHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class CadastroClientesActivity extends AppCompatActivity {
     private LinearLayout llEnderecos, llTelefones, llEmails;
+    private List<EditText> listaEnderecos = new ArrayList<>();
+    private List<EditText> listaTelefones = new ArrayList<>();
+    private List<EditText> listaEmails = new ArrayList<>();
     private ClienteHelper helper;
 
     @Override
@@ -34,11 +42,13 @@ public class CadastroClientesActivity extends AppCompatActivity {
         llTelefones = (LinearLayout) findViewById(R.id.container_telefones);
         llEmails = (LinearLayout) findViewById(R.id.container_emails);
 
-        helper = new ClienteHelper(CadastroClientesActivity.this);
+        helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos);
     }
 
     public void novoEndereco(View v){
-        llEnderecos.addView(geraEditText(R.string.label_endereco));
+        EditText editText = geraEditText(R.string.label_endereco);
+        llEnderecos.addView(editText);
+        listaEnderecos.add(editText);
     }
 
     public void novoTelefone(View v){
@@ -71,21 +81,37 @@ public class CadastroClientesActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
-                Cliente cliente = helper.pegaClienteDoFormulario();
-                ClienteDAO dao = new ClienteDAO(this);
-
-                dao.insere(cliente);
-                dao.close();
-
-                ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_SHORT);
-
-                Intent detalhe = new Intent(this, DetalheClienteActivity.class);
-                detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
-                startActivity(detalhe);
+                salvarClienteCompleto();
                 return false;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void salvarClienteCompleto(){
+        Cliente cliente = helper.pegaClienteDoFormulario();
+        ClienteDAO clienteDAO = new ClienteDAO(this);
+        clienteDAO.close();
+
+        Long clienteId = clienteDAO.insere(cliente);
+
+        salvarEndereco(cliente.getEnderecos(), clienteId);
+
+        ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_SHORT);
+
+        Intent detalhe = new Intent(this, DetalheClienteActivity.class);
+        detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
+        startActivity(detalhe);
+    }
+
+    private void salvarEndereco(List<Endereco> enderecos, Long clienteId){
+        EnderecoDAO enderecoDAO = new EnderecoDAO(this);
+
+        for(Endereco endereco : enderecos){
+            enderecoDAO.insere(endereco, clienteId);
+        }
+
+        enderecoDAO.close();
     }
 }

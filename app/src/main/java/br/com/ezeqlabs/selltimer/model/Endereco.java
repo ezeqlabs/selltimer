@@ -1,8 +1,11 @@
 package br.com.ezeqlabs.selltimer.model;
 
-public class Endereco {
+import java.io.Serializable;
+
+public class Endereco implements Serializable {
     private Long id;
     private String endereco;
+    private Long clienteId;
 
     public Long getId() {
         return id;
@@ -18,5 +21,13 @@ public class Endereco {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 }
