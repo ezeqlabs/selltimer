@@ -18,9 +18,11 @@ import java.util.List;
 
 import br.com.ezeqlabs.selltimer.dao.ClienteDAO;
 import br.com.ezeqlabs.selltimer.dao.EnderecoDAO;
+import br.com.ezeqlabs.selltimer.dao.TelefoneDAO;
 import br.com.ezeqlabs.selltimer.helpers.ClienteHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Endereco;
+import br.com.ezeqlabs.selltimer.model.Telefone;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class CadastroClientesActivity extends AppCompatActivity {
@@ -42,7 +44,7 @@ public class CadastroClientesActivity extends AppCompatActivity {
         llTelefones = (LinearLayout) findViewById(R.id.container_telefones);
         llEmails = (LinearLayout) findViewById(R.id.container_emails);
 
-        helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos);
+        helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos, listaTelefones);
     }
 
     public void novoEndereco(View v){
@@ -52,7 +54,9 @@ public class CadastroClientesActivity extends AppCompatActivity {
     }
 
     public void novoTelefone(View v){
-        llTelefones.addView(geraEditText(R.string.label_telefone));
+        EditText editText = geraEditText(R.string.label_telefone);
+        llTelefones.addView(editText);
+        listaTelefones.add(editText);
     }
 
     public void novoEmail(View v){
@@ -97,6 +101,7 @@ public class CadastroClientesActivity extends AppCompatActivity {
         Long clienteId = clienteDAO.insere(cliente);
 
         salvarEndereco(cliente.getEnderecos(), clienteId);
+        salvarTelefones(cliente.getTelefones(), clienteId);
 
         ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_SHORT);
 
@@ -113,5 +118,15 @@ public class CadastroClientesActivity extends AppCompatActivity {
         }
 
         enderecoDAO.close();
+    }
+
+    private void salvarTelefones(List<Telefone> telefones, Long clienteId){
+        TelefoneDAO telefoneDAO = new TelefoneDAO(this);
+
+        for(Telefone telefone : telefones){
+            telefoneDAO.insere(telefone, clienteId);
+        }
+
+        telefoneDAO.close();
     }
 }

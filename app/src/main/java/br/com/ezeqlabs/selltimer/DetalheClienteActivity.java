@@ -19,11 +19,12 @@ import java.util.List;
 
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Endereco;
+import br.com.ezeqlabs.selltimer.model.Telefone;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class DetalheClienteActivity extends AppCompatActivity {
     private ListView listView;
-    private LinearLayout llEndereco;
+    private LinearLayout llEndereco, llTelefone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,11 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listview_contatos);
         llEndereco = (LinearLayout) findViewById(R.id.container_enderecos_detalhe);
+        llTelefone = (LinearLayout) findViewById(R.id.container_telefones_detalhe);
 
         Cliente cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
         List<Endereco> enderecos = cliente.getEnderecos();
+        List<Telefone> telefones = cliente.getTelefones();
 
         TextView nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
         nomeCliente.setText(cliente.getNome());
@@ -46,7 +49,9 @@ public class DetalheClienteActivity extends AppCompatActivity {
             geraEndereco(endereco);
         }
 
-
+        for(Telefone telefone : telefones){
+            geraTelefone(telefone);
+        }
 
         List<String> contatos = new ArrayList<>();
         contatos.add("19/12/2016 - Muito interessado");
@@ -96,6 +101,10 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
     private void geraEndereco(Endereco endereco){
         llEndereco.addView(geraTextView(endereco.getEndereco()));
+    }
+
+    private void geraTelefone(Telefone telefone){
+        llTelefone.addView(geraTextView(telefone.getTelefone()));
     }
 
     private TextView geraTextView(String texto){

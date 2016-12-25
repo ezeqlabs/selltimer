@@ -23,23 +23,12 @@
             style="@style/TituloInformacao"
             android:text="@string/telefones_detalhe_cliente"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/container_telefones_detalhe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
-            android:text="1122-3344"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="1122-3344"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="1122-3344"/>
+            android:orientation="vertical" />
 
         <TextView
             style="@style/TituloInformacao"

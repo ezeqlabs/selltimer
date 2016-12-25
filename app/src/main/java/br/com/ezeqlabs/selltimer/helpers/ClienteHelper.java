@@ -9,17 +9,21 @@ import br.com.ezeqlabs.selltimer.CadastroClientesActivity;
 import br.com.ezeqlabs.selltimer.R;
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Endereco;
+import br.com.ezeqlabs.selltimer.model.Telefone;
 
 public class ClienteHelper {
     private EditText nome;
-    private List<EditText> enderecos;
+    private List<EditText> enderecos, telefones;
     private Cliente cliente;
 
-    public ClienteHelper(CadastroClientesActivity activity, List<EditText> listaEnderecos){
+    public ClienteHelper(CadastroClientesActivity activity, List<EditText> listaEnderecos, List<EditText> listaTelefones){
         nome = (EditText) activity.findViewById(R.id.nome_cliente);
 
         enderecos = listaEnderecos;
         enderecos.add( (EditText) activity.findViewById(R.id.endereco_cliente) );
+
+        telefones = listaTelefones;
+        telefones.add( (EditText) activity.findViewById(R.id.telefone_cliente) );
 
         cliente = new Cliente();
     }
@@ -27,6 +31,7 @@ public class ClienteHelper {
     public Cliente pegaClienteDoFormulario(){
         cliente.setNome(nome.getText().toString());
         cliente.setEnderecos(listaEnderecos());
+        cliente.setTelefones(listaTelefones());
 
         return cliente;
     }
@@ -41,5 +46,17 @@ public class ClienteHelper {
         }
 
         return listEnderecos;
+    }
+
+    private List<Telefone> listaTelefones(){
+        List<Telefone> listTelefones = new ArrayList<>();
+
+        for(EditText editTextTelefone : telefones){
+            Telefone telefone = new Telefone();
+            telefone.setTelefone(editTextTelefone.getText().toString());
+            listTelefones.add(telefone);
+        }
+
+        return listTelefones;
     }
 }

@@ -25,7 +25,7 @@ public class EnderecoDAO extends SQLiteOpenHelper {
                 + " (id_end INTEGER PRIMARY KEY, "
                 + " endereco TEXT, "
                 + " cliente_id_end INTEGER, "
-                + " FOREIGN KEY(cliente_id) REFERENCES "+ ClienteDAO.TABELA +"(id)";
+                + " FOREIGN KEY(cliente_id_end) REFERENCES "+ ClienteDAO.TABELA +"(id)";
 
         sqLiteDatabase.execSQL(sql);
     }
