@@ -29,6 +29,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     private List<Endereco> enderecos;
     private List<Telefone> telefones;
     private List<Email> emails;
+    private Cliente cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
         llTelefone = (LinearLayout) findViewById(R.id.container_telefones_detalhe);
         llEmail = (LinearLayout) findViewById(R.id.container_emails_detalhe);
 
-        Cliente cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
         enderecos = cliente.getEnderecos();
         telefones = cliente.getTelefones();
         emails = cliente.getEmails();
@@ -54,10 +55,6 @@ public class DetalheClienteActivity extends AppCompatActivity {
         preparaEnderecos();
         preparaTelefone();
         preparaEmail();
-
-
-
-
 
         List<String> contatos = new ArrayList<>();
         contatos.add("19/12/2016 - Muito interessado");
@@ -95,7 +92,6 @@ public class DetalheClienteActivity extends AppCompatActivity {
             case android.R.id.home:
                 Intent listagem = new Intent(this, ClientesActivity.class);
                 startActivity(listagem);
-                
                 this.finish();
                 return true;
             default:
@@ -105,6 +101,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
     public void adicionaContato(View v){
         Intent cadastroContato = new Intent(this, CadastroContatoActivity.class);
+        cadastroContato.putExtra(Constantes.CLIENTE_INTENT, cliente);
         startActivity(cadastroContato);
     }
 

@@ -1,14 +1,34 @@
 package br.com.ezeqlabs.selltimer;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.onurciner.toastox.ToastOX;
+
+import java.text.ParseException;
+import java.util.Calendar;
+
+import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
+import br.com.ezeqlabs.selltimer.helpers.ContatoHelper;
+import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Contato;
+import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class CadastroContatoActivity extends AppCompatActivity {
+    private EditText dataContato;
+    private Cliente cliente;
+    private ContatoHelper helper;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +43,11 @@ public class CadastroContatoActivity extends AppCompatActivity {
                 R.array.tipos_de_interesse, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        dataContato = (EditText) findViewById(R.id.data_contato);
+
+        helper = new ContatoHelper(this);
+        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
     }
 
     @Override
@@ -39,12 +64,64 @@ public class CadastroContatoActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
-                Intent detalhe = new Intent(this, DetalheContatoActivity.class);
-                startActivity(detalhe);
+                try {
+                    salvarContato();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                finish();
                 return false;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void salvarContato() throws ParseException {
+        Contato contato = helper.pegaContatoDoFormulario();
+        databaseHelper = new DatabaseHelper(this);
+
+        Long clienteId = cliente.getId();
+
+        databaseHelper.insereContato(contato, clienteId);
+
+        databaseHelper.close();
+
+        ToastOX.ok(this, getString(R.string.contato_salvo_sucesso), Toast.LENGTH_LONG);
+
+        Intent detalhe = new Intent(this, DetalheContatoActivity.class);
+        detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
+        detalhe.putExtra(Constantes.CONTATO_INTENT, contato);
+        startActivity(detalhe);
+    }
+
+    public void abreDatepicker(View v){
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dpd = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        dataContato.setText(preparaTextoData(dayOfMonth, (monthOfYear + 1), year));
+
+                    }
+                }, mYear, mMonth, mDay);
+        dpd.show();
+    }
+
+    private String preparaTextoData(int dia, int mes, int ano){
+        String texto = "";
+
+        texto += dia + "/";
+        texto += mes > 9 ? mes : "0"+mes;
+        texto += "/";
+        texto += ano;
+
+        return texto;
     }
 }

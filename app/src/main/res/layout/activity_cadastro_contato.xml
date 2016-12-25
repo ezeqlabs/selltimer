@@ -24,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/label_data"
                 android:layout_marginBottom="16dp"
-                android:inputType="date"
+                android:inputType="none"
+                android:onClick="abreDatepicker"
                 />
 
         </android.support.design.widget.TextInputLayout>

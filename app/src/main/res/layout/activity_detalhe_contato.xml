@@ -16,29 +16,18 @@
         >
 
         <TextView
+            android:id="@+id/titulo_cliente_contato"
             style="@style/TituloCliente"
-            android:text="Cliente 01"
             />
 
         <TextView
             style="@style/TituloInformacao"
-            android:text="@string/data_detalhe_contato"/>
+            android:text="@string/informacoes_detalhe_contato"/>
 
         <TextView
+            android:id="@+id/data_interesse_contato"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="19/12/2016"
-            android:paddingLeft="16dp"
-            />
-
-        <TextView
-            style="@style/TituloInformacao"
-            android:text="@string/interesse_detalhe_contato"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Muito interessado"
             android:paddingLeft="16dp"
             />
 
@@ -47,9 +36,9 @@
             android:text="@string/descricao_detalhe_contato"/>
 
         <TextView
+            android:id="@+id/anotacoes_contato"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             />

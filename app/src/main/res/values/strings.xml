@@ -45,6 +45,7 @@
     <string name="label_data">Data do contato</string>
     <string name="label_descricao">Descrição do contato</string>
     <string name="label_interesse">Selecione o tipo de interesse</string>
+    <string name="contato_salvo_sucesso">Contato salvo com sucesso</string>
 
     <!-- DETALHE CLIENTE ACTIVITY -->
     <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>
@@ -59,6 +60,7 @@
     <string name="data_detalhe_contato">Data do contato:</string>
     <string name="interesse_detalhe_contato">Nível de interesse:</string>
     <string name="descricao_detalhe_contato">Descrição do contato:</string>
+    <string name="informacoes_detalhe_contato">Informações do contato:</string>
 
     <!-- SOBRE ACTIVITY -->
     <string name="title_activity_sobre">Sobre o aplicativo</string>

@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Contato;
 import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
@@ -19,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABELA_ENDERECOS = "enderecos";
     public static final String TABELA_EMAILS = "emails";
     public static final String TABELA_TELEFONES = "telefones";
+    public static final String TABELA_CONTATOS = "contatos";
     public static final String NOME_BD = "selltimer.db";
     public static final int VERSAO_BD = 1;
 
@@ -32,6 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(criaTabelaEnderecos());
         sqLiteDatabase.execSQL(criaTabelaEmails());
         sqLiteDatabase.execSQL(criaTabelaTelefones());
+        sqLiteDatabase.execSQL(criaTabelaContatos());
     }
 
     @Override
@@ -187,4 +192,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return telefones;
     }
+
+    private String criaTabelaContatos(){
+        String sql = "CREATE TABLE " + TABELA_CONTATOS
+                + "(id_con INTEGER PRIMARY KEY, "
+                + "data DATE, "
+                + "anotacoes TEXT, "
+                + "interesse TEXT, "
+                + "cliente_id_con INTEGER, "
+                + " FOREIGN KEY(cliente_id_con) REFERENCES "+ TABELA_CLIENTES +"(id)"
+                + ");";
+
+        return sql;
+    }
+
+    public Long insereContato(Contato contato, Long clienteId){
+        ContentValues values = new ContentValues();
+
+        values.put("data", contato.getData().toString());
+        values.put("anotacoes", contato.getAnotacoes());
+        values.put("interesse", contato.getInteresse());
+        values.put("cliente_id_con", clienteId);
+
+        return getWritableDatabase().insert(TABELA_CONTATOS, null, values);
+    }
+
+    public List<Contato> getContatosCliente(Long idCliente) throws ParseException {
+        List<Contato> contatos = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABELA_CONTATOS + " WHERE cliente_id_con = "+ idCliente +" ORDER BY data DESC;";
+
+        Cursor c = getReadableDatabase().rawQuery(sql, null);
+
+        while(c.moveToNext()){
+            Contato contato = new Contato();
+
+            contato.setId(c.getLong(c.getColumnIndex("id_con")));
+            contato.setData(c.getString(c.getColumnIndex("data")));
+            contato.setAnotacoes(c.getString(c.getColumnIndex("anotacoes")));
+            contato.setInteresse(c.getString(c.getColumnIndex("interesse")));
+            contato.setClienteId(c.getLong(c.getColumnIndex("cliente_id_con")));
+
+            contatos.add(contato);
+        }
+
+        return contatos;
+    }
+
 }
