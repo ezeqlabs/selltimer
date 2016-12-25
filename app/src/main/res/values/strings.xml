@@ -38,6 +38,7 @@
     <string name="novo_telefone"><u>+ Adicionar telefone</u></string>
     <string name="label_email">E-mail</string>
     <string name="novo_email"><u>+ Adicionar e-mail</u></string>
+    <string name="cliente_salvo_sucesso">Cliente salvo com sucesso</string>
 
     <!-- CADASTRO CONTATO ACTIVITY -->
     <string name="title_activity_cadastro_contato">Cadastro de contato</string>

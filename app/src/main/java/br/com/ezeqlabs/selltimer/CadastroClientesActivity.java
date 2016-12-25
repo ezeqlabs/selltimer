@@ -9,9 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.onurciner.toastox.ToastOX;
+
+import br.com.ezeqlabs.selltimer.dao.ClienteDAO;
+import br.com.ezeqlabs.selltimer.helpers.ClienteHelper;
+import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class CadastroClientesActivity extends AppCompatActivity {
     private LinearLayout llEnderecos, llTelefones, llEmails;
+    private ClienteHelper helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +33,8 @@ public class CadastroClientesActivity extends AppCompatActivity {
         llEnderecos = (LinearLayout) findViewById(R.id.container_enderecos);
         llTelefones = (LinearLayout) findViewById(R.id.container_telefones);
         llEmails = (LinearLayout) findViewById(R.id.container_emails);
+
+        helper = new ClienteHelper(CadastroClientesActivity.this);
     }
 
     public void novoEndereco(View v){
@@ -59,7 +71,16 @@ public class CadastroClientesActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
+                Cliente cliente = helper.pegaClienteDoFormulario();
+                ClienteDAO dao = new ClienteDAO(this);
+
+                dao.insere(cliente);
+                dao.close();
+
+                ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_SHORT);
+
                 Intent detalhe = new Intent(this, DetalheClienteActivity.class);
+                detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
                 startActivity(detalhe);
                 return false;
 

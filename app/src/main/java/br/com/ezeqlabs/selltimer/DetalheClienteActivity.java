@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class DetalheClienteActivity extends AppCompatActivity {
     private ListView listView;
@@ -22,6 +26,11 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        Cliente cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+
+        TextView nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
+        nomeCliente.setText(cliente.getNome());
 
         listView = (ListView) findViewById(R.id.listview_contatos);
 

@@ -16,6 +16,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ezeqlabs.selltimer.dao.ClienteDAO;
+import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.utils.Constantes;
+
 public class ClientesActivity extends AppCompatActivity {
     private ListView listView;
 
@@ -30,32 +34,12 @@ public class ClientesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         listView = (ListView) findViewById(R.id.listview_clientes);
+        ClienteDAO dao = new ClienteDAO(this);
 
-        List<String> clientes = new ArrayList<>();
 
-        clientes.add("Cliente 01");
-        clientes.add("Cliente 02");
-        clientes.add("Cliente 03");
-        clientes.add("Cliente 04");
-        clientes.add("Cliente 05");
-        clientes.add("Cliente 06");
-        clientes.add("Cliente 07");
-        clientes.add("Cliente 08");
-        clientes.add("Cliente 09");
-        clientes.add("Cliente 10");
-        clientes.add("Cliente 11");
-        clientes.add("Cliente 12");
-        clientes.add("Cliente 13");
-        clientes.add("Cliente 14");
-        clientes.add("Cliente 15");
-        clientes.add("Cliente 16");
-        clientes.add("Cliente 17");
-        clientes.add("Cliente 18");
-        clientes.add("Cliente 19");
-        clientes.add("Cliente 20");
-        clientes.add("Cliente 21");
+        List<Cliente> clientes = dao.getClientes();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
+        ArrayAdapter<Cliente> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clientes);
 
         listView.setAdapter(adapter);
 
@@ -63,6 +47,7 @@ public class ClientesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent detalhe = new Intent(ClientesActivity.this, DetalheClienteActivity.class);
+                detalhe.putExtra(Constantes.CLIENTE_INTENT, (Cliente) listView.getItemAtPosition(i));
                 startActivity(detalhe);
             }
         });
