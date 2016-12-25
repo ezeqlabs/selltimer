@@ -17,10 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ezeqlabs.selltimer.dao.ClienteDAO;
+import br.com.ezeqlabs.selltimer.dao.EmailDAO;
 import br.com.ezeqlabs.selltimer.dao.EnderecoDAO;
 import br.com.ezeqlabs.selltimer.dao.TelefoneDAO;
 import br.com.ezeqlabs.selltimer.helpers.ClienteHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
@@ -44,7 +46,7 @@ public class CadastroClientesActivity extends AppCompatActivity {
         llTelefones = (LinearLayout) findViewById(R.id.container_telefones);
         llEmails = (LinearLayout) findViewById(R.id.container_emails);
 
-        helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos, listaTelefones);
+        helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos, listaTelefones, listaEmails);
     }
 
     public void novoEndereco(View v){
@@ -60,7 +62,9 @@ public class CadastroClientesActivity extends AppCompatActivity {
     }
 
     public void novoEmail(View v){
-        llEmails.addView(geraEditText(R.string.label_email));
+        EditText editText = geraEditText(R.string.label_email);
+        llEmails.addView(editText);
+        listaEmails.add(editText);
     }
 
     private EditText geraEditText(int hint){
@@ -102,8 +106,9 @@ public class CadastroClientesActivity extends AppCompatActivity {
 
         salvarEndereco(cliente.getEnderecos(), clienteId);
         salvarTelefones(cliente.getTelefones(), clienteId);
+        salvarEmails(cliente.getEmails(), clienteId);
 
-        ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_SHORT);
+        ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_LONG);
 
         Intent detalhe = new Intent(this, DetalheClienteActivity.class);
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
@@ -128,5 +133,15 @@ public class CadastroClientesActivity extends AppCompatActivity {
         }
 
         telefoneDAO.close();
+    }
+
+    private void salvarEmails(List<Email> emails, Long clienteId){
+        EmailDAO emailDAO = new EmailDAO(this);
+
+        for(Email email : emails){
+            emailDAO.insere(email, clienteId);
+        }
+
+        emailDAO.close();
     }
 }

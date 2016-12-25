@@ -8,15 +8,16 @@ import java.util.List;
 import br.com.ezeqlabs.selltimer.CadastroClientesActivity;
 import br.com.ezeqlabs.selltimer.R;
 import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
 
 public class ClienteHelper {
     private EditText nome;
-    private List<EditText> enderecos, telefones;
+    private List<EditText> enderecos, telefones, emails;
     private Cliente cliente;
 
-    public ClienteHelper(CadastroClientesActivity activity, List<EditText> listaEnderecos, List<EditText> listaTelefones){
+    public ClienteHelper(CadastroClientesActivity activity, List<EditText> listaEnderecos, List<EditText> listaTelefones, List<EditText> listaEmails){
         nome = (EditText) activity.findViewById(R.id.nome_cliente);
 
         enderecos = listaEnderecos;
@@ -25,6 +26,9 @@ public class ClienteHelper {
         telefones = listaTelefones;
         telefones.add( (EditText) activity.findViewById(R.id.telefone_cliente) );
 
+        emails = listaEmails;
+        emails.add( (EditText) activity.findViewById(R.id.email_cliente) );
+
         cliente = new Cliente();
     }
 
@@ -32,6 +36,7 @@ public class ClienteHelper {
         cliente.setNome(nome.getText().toString());
         cliente.setEnderecos(listaEnderecos());
         cliente.setTelefones(listaTelefones());
+        cliente.setEmails(listaEmails());
 
         return cliente;
     }
@@ -58,5 +63,17 @@ public class ClienteHelper {
         }
 
         return listTelefones;
+    }
+
+    private List<Email> listaEmails(){
+        List<Email> listEmail = new ArrayList<>();
+
+        for(EditText editTextEmail : emails){
+            Email email = new Email();
+            email.setEmail(editTextEmail.getText().toString());
+            listEmail.add(email);
+        }
+
+        return listEmail;
     }
 }

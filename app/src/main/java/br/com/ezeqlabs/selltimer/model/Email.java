@@ -1,8 +1,11 @@
 package br.com.ezeqlabs.selltimer.model;
 
-public class Email {
+import java.io.Serializable;
+
+public class Email implements Serializable{
     private Long id;
     private String email;
+    private Long clienteId;
 
     public Long getId() {
         return id;
@@ -18,5 +21,13 @@ public class Email {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 }

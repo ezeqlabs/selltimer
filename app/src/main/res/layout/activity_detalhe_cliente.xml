@@ -45,23 +45,12 @@
             style="@style/TituloInformacao"
             android:text="@string/emails_detalhe_cliente"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/container_emails_detalhe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
-            android:text="teste@teste.com.br"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="teste@teste.com.br"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="teste@teste.com.br"/>
+            android:orientation="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"

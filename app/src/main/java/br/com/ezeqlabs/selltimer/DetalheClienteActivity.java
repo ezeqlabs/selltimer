@@ -18,13 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class DetalheClienteActivity extends AppCompatActivity {
     private ListView listView;
-    private LinearLayout llEndereco, llTelefone;
+    private LinearLayout llEndereco, llTelefone, llEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,12 @@ public class DetalheClienteActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview_contatos);
         llEndereco = (LinearLayout) findViewById(R.id.container_enderecos_detalhe);
         llTelefone = (LinearLayout) findViewById(R.id.container_telefones_detalhe);
+        llEmail = (LinearLayout) findViewById(R.id.container_emails_detalhe);
 
         Cliente cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
         List<Endereco> enderecos = cliente.getEnderecos();
         List<Telefone> telefones = cliente.getTelefones();
+        List<Email> emails = cliente.getEmails();
 
         TextView nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
         nomeCliente.setText(cliente.getNome());
@@ -51,6 +54,10 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
         for(Telefone telefone : telefones){
             geraTelefone(telefone);
+        }
+
+        for(Email email : emails){
+            geraEmail(email);
         }
 
         List<String> contatos = new ArrayList<>();
@@ -105,6 +112,10 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
     private void geraTelefone(Telefone telefone){
         llTelefone.addView(geraTextView(telefone.getTelefone()));
+    }
+
+    private void geraEmail(Email email){
+        llEmail.addView(geraTextView(email.getEmail()));
     }
 
     private TextView geraTextView(String texto){
