@@ -16,10 +16,7 @@ import com.onurciner.toastox.ToastOX;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ezeqlabs.selltimer.dao.ClienteDAO;
-import br.com.ezeqlabs.selltimer.dao.EmailDAO;
-import br.com.ezeqlabs.selltimer.dao.EnderecoDAO;
-import br.com.ezeqlabs.selltimer.dao.TelefoneDAO;
+import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 import br.com.ezeqlabs.selltimer.helpers.ClienteHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Email;
@@ -33,6 +30,7 @@ public class CadastroClientesActivity extends AppCompatActivity {
     private List<EditText> listaTelefones = new ArrayList<>();
     private List<EditText> listaEmails = new ArrayList<>();
     private ClienteHelper helper;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +97,15 @@ public class CadastroClientesActivity extends AppCompatActivity {
 
     private void salvarClienteCompleto(){
         Cliente cliente = helper.pegaClienteDoFormulario();
-        ClienteDAO clienteDAO = new ClienteDAO(this);
-        clienteDAO.close();
+        databaseHelper = new DatabaseHelper(this);
 
-        Long clienteId = clienteDAO.insere(cliente);
+        Long clienteId = databaseHelper.insereCliente(cliente);
 
         salvarEndereco(cliente.getEnderecos(), clienteId);
         salvarTelefones(cliente.getTelefones(), clienteId);
         salvarEmails(cliente.getEmails(), clienteId);
+
+        databaseHelper.close();
 
         ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_LONG);
 
@@ -116,32 +115,20 @@ public class CadastroClientesActivity extends AppCompatActivity {
     }
 
     private void salvarEndereco(List<Endereco> enderecos, Long clienteId){
-        EnderecoDAO enderecoDAO = new EnderecoDAO(this);
-
         for(Endereco endereco : enderecos){
-            enderecoDAO.insere(endereco, clienteId);
+            databaseHelper.insereEndereco(endereco, clienteId);
         }
-
-        enderecoDAO.close();
     }
 
     private void salvarTelefones(List<Telefone> telefones, Long clienteId){
-        TelefoneDAO telefoneDAO = new TelefoneDAO(this);
-
         for(Telefone telefone : telefones){
-            telefoneDAO.insere(telefone, clienteId);
+            databaseHelper.insereTelefone(telefone, clienteId);
         }
-
-        telefoneDAO.close();
     }
 
     private void salvarEmails(List<Email> emails, Long clienteId){
-        EmailDAO emailDAO = new EmailDAO(this);
-
         for(Email email : emails){
-            emailDAO.insere(email, clienteId);
+            databaseHelper.insereEmail(email, clienteId);
         }
-
-        emailDAO.close();
     }
 }
