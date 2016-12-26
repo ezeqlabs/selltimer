@@ -3,6 +3,7 @@ package br.com.ezeqlabs.selltimer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,27 +49,25 @@ public class CadastroClientesActivity extends AppCompatActivity {
     }
 
     public void novoEndereco(View v){
-        EditText editText = geraEditText(R.string.label_endereco);
+        EditText editText = geraEditText(R.string.label_endereco, R.layout.edittext_endereco);
         llEnderecos.addView(editText);
         listaEnderecos.add(editText);
     }
 
     public void novoTelefone(View v){
-        EditText editText = geraEditText(R.string.label_telefone);
+        EditText editText = geraEditText(R.string.label_telefone, R.layout.edittext_telefone);
         llTelefones.addView(editText);
         listaTelefones.add(editText);
     }
 
     public void novoEmail(View v){
-        EditText editText = geraEditText(R.string.label_email);
+        EditText editText = geraEditText(R.string.label_email, R.layout.edittext_email);
         llEmails.addView(editText);
         listaEmails.add(editText);
     }
 
-    private EditText geraEditText(int hint){
-        EditText editText = new EditText(this);
-        editText.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    private EditText geraEditText(int hint, int layout){
+        EditText editText = (EditText) LayoutInflater.from(this).inflate(layout, null);
         editText.setHint(hint);
         return editText;
     }
