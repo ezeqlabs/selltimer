@@ -3,33 +3,41 @@ package br.com.ezeqlabs.selltimer;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
+import br.com.ezeqlabs.selltimer.model.Contato;
 import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class DetalheClienteActivity extends AppCompatActivity {
-    private ListView listView;
-    private LinearLayout llEndereco, llTelefone, llEmail;
+    private LinearLayout llEndereco, llTelefone, llEmail, llContato;
     private List<Endereco> enderecos;
     private List<Telefone> telefones;
     private List<Email> emails;
+    private List<Contato> contatos;
     private Cliente cliente;
+    private Contato contato;
+    private DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private TextView nomeCliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,45 +47,24 @@ public class DetalheClienteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        listView = (ListView) findViewById(R.id.listview_contatos);
-        llEndereco = (LinearLayout) findViewById(R.id.container_enderecos_detalhe);
-        llTelefone = (LinearLayout) findViewById(R.id.container_telefones_detalhe);
-        llEmail = (LinearLayout) findViewById(R.id.container_emails_detalhe);
+        atribuiVariaveis();
 
-        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
-        enderecos = cliente.getEnderecos();
-        telefones = cliente.getTelefones();
-        emails = cliente.getEmails();
+    }
 
-        TextView nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
-        nomeCliente.setText(cliente.getNome());
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        preparaNomeCliente();
         preparaEnderecos();
         preparaTelefone();
         preparaEmail();
+        preparaContatos();
+    }
 
-        List<String> contatos = new ArrayList<>();
-        contatos.add("19/12/2016 - Muito interessado");
-        contatos.add("17/12/2016 - Muito interessado");
-        contatos.add("14/12/2016 - Muito interessado");
-        contatos.add("11/12/2016 - Interessado");
-        contatos.add("06/12/2016 - Interessado");
-        contatos.add("28/11/2016 - Interessado");
-        contatos.add("22/11/2016 - Pouco interessado");
-        contatos.add("16/11/2016 - Pouco interessado");
-        contatos.add("01/11/2016 - Pouco interessado");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contatos);
-
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent detalheContato = new Intent(DetalheClienteActivity.this, DetalheContatoActivity.class);
-                startActivity(detalheContato);
-            }
-        });
+    @Override
+    protected void onStop(){
+        super.onStop();
+        llContato.removeAllViews();
     }
 
     @Override
@@ -125,6 +112,23 @@ public class DetalheClienteActivity extends AppCompatActivity {
         return textView;
     }
 
+    private void atribuiVariaveis(){
+        llEndereco = (LinearLayout) findViewById(R.id.container_enderecos_detalhe);
+        llTelefone = (LinearLayout) findViewById(R.id.container_telefones_detalhe);
+        llEmail = (LinearLayout) findViewById(R.id.container_emails_detalhe);
+        llContato = (LinearLayout) findViewById(R.id.container_contatos_cliente);
+        nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
+
+        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+        enderecos = cliente.getEnderecos();
+        telefones = cliente.getTelefones();
+        emails = cliente.getEmails();
+    }
+
+    private void preparaNomeCliente(){
+        nomeCliente.setText(cliente.getNome());
+    }
+
     private void preparaEnderecos(){
         if(enderecos.size() > 0){
             for(Endereco endereco : enderecos){
@@ -155,6 +159,20 @@ public class DetalheClienteActivity extends AppCompatActivity {
         }else{
             findViewById(R.id.titulo_emails_detalhes).setVisibility(View.GONE);
             findViewById(R.id.container_emails_detalhe).setVisibility(View.GONE);
+        }
+    }
+
+    private void preparaContatos(){
+        contatos = databaseHelper.getContatosCliente( cliente.getId() );
+        if(!contatos.isEmpty()){
+
+            for(Contato con : contatos){
+                Button botao = (Button) LayoutInflater.from(this).inflate(R.layout.button_contato, null);
+                botao.setText( con.toString() );
+
+                llContato.addView(botao);
+            }
+
         }
     }
 }

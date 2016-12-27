@@ -1,13 +1,10 @@
 package br.com.ezeqlabs.selltimer.model;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Contato implements Serializable {
     private Long id;
-    private Date data;
+    private String data;
     private String anotacoes;
     private String interesse;
     private Long clienteId;
@@ -20,13 +17,22 @@ public class Contato implements Serializable {
         this.id = id;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(String data) throws ParseException {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        this.data = formato.parse(data);
+    public String getDataParaBanco(){
+        String[] partes = data.split("/");
+        return partes[2] + "-" + partes[1] + "-" + partes[0];
+    }
+
+    public void setData(String data){
+        this.data = data;
+    }
+
+    public void setDataDoBanco(String data){
+        String[] partes = data.split("-");
+        this.data = partes[2] + "/" + partes[1] + "/" + partes[0];
     }
 
     public String getAnotacoes() {
@@ -51,5 +57,10 @@ public class Contato implements Serializable {
 
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
+    }
+
+    @Override
+    public String toString() {
+        return data + " - " + interesse;
     }
 }

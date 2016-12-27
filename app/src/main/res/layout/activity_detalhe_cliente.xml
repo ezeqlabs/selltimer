@@ -88,13 +88,11 @@
 
         </LinearLayout>
 
-
-        <ListView
-            android:layout_marginTop="16dp"
-            android:id="@+id/listview_contatos"
+        <LinearLayout
+            android:id="@+id/container_contatos_cliente"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
     </LinearLayout>
 

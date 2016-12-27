@@ -209,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Long insereContato(Contato contato, Long clienteId){
         ContentValues values = new ContentValues();
 
-        values.put("data", contato.getData().toString());
+        values.put("data", contato.getDataParaBanco());
         values.put("anotacoes", contato.getAnotacoes());
         values.put("interesse", contato.getInteresse());
         values.put("cliente_id_con", clienteId);
@@ -217,7 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return getWritableDatabase().insert(TABELA_CONTATOS, null, values);
     }
 
-    public List<Contato> getContatosCliente(Long idCliente) throws ParseException {
+    public List<Contato> getContatosCliente(Long idCliente){
         List<Contato> contatos = new ArrayList<>();
         String sql = "SELECT * FROM " + TABELA_CONTATOS + " WHERE cliente_id_con = "+ idCliente +" ORDER BY data DESC;";
 
@@ -227,7 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Contato contato = new Contato();
 
             contato.setId(c.getLong(c.getColumnIndex("id_con")));
-            contato.setData(c.getString(c.getColumnIndex("data")));
+            contato.setDataDoBanco(c.getString(c.getColumnIndex("data")));
             contato.setAnotacoes(c.getString(c.getColumnIndex("anotacoes")));
             contato.setInteresse(c.getString(c.getColumnIndex("interesse")));
             contato.setClienteId(c.getLong(c.getColumnIndex("cliente_id_con")));
