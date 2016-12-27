@@ -4,4 +4,5 @@
     android:layout_height="wrap_content"
     android:gravity="left|center_vertical"
     style="?android:attr/borderlessButtonStyle"
+    android:onClick="abreContato"
     />

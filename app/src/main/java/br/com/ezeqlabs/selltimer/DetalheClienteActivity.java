@@ -168,11 +168,25 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
             for(Contato con : contatos){
                 Button botao = (Button) LayoutInflater.from(this).inflate(R.layout.button_contato, null);
+                botao.setId(Integer.parseInt(String.valueOf(con.getId())));
                 botao.setText( con.toString() );
 
                 llContato.addView(botao);
             }
 
         }
+    }
+
+    public void abreContato(View v){
+        for( int i = 0; i < contatos.size(); i++ ){
+            if( v.getId() == contatos.get(i).getId() ){
+                contato = contatos.get(i);
+            }
+        }
+
+        Intent detalhe = new Intent(this, DetalheContatoActivity.class);
+        detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
+        detalhe.putExtra(Constantes.CONTATO_INTENT, contato);
+        startActivity(detalhe);
     }
 }
