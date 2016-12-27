@@ -64,7 +64,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        llContato.removeAllViews();
+        limpaLayout();
     }
 
     @Override
@@ -175,6 +175,13 @@ public class DetalheClienteActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void limpaLayout(){
+        llContato.removeAllViews();
+        llEmail.removeAllViews();
+        llEndereco.removeAllViews();
+        llTelefone.removeAllViews();
     }
 
     public void abreContato(View v){
