@@ -106,6 +106,8 @@ public class CadastroClientesActivity extends AppCompatActivity {
 
         databaseHelper.close();
 
+        cliente.setId(clienteId);
+
         ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_LONG);
 
         Intent detalhe = new Intent(this, DetalheClienteActivity.class);
