@@ -20,16 +20,18 @@ import android.widget.AdapterView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 import br.com.ezeqlabs.selltimer.fragment.ClientesHojeFragment;
 import br.com.ezeqlabs.selltimer.fragment.ClientesMesFragment;
 import br.com.ezeqlabs.selltimer.fragment.ClientesSemanaFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,18 +110,40 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent detalhe = new Intent(MainActivity.this, DetalheClienteActivity.class);
-        startActivity(detalhe);
-    }
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ClientesHojeFragment(), getString(R.string.tab_hoje));
-        adapter.addFragment(new ClientesSemanaFragment(), getString(R.string.tab_semana));
-        adapter.addFragment(new ClientesMesFragment(), getString(R.string.tab_mes));
+
+
+
+        adapter.addFragment(preparaHojeFragment(), getString(R.string.tab_hoje));
+        adapter.addFragment(preparaSemanaFragment(), getString(R.string.tab_semana));
+        adapter.addFragment(preparaMesFragment(), getString(R.string.tab_mes));
+
         viewPager.setAdapter(adapter);
+    }
+
+    private ClientesHojeFragment preparaHojeFragment(){
+        ClientesHojeFragment clientesHojeFragment = new ClientesHojeFragment();
+        clientesHojeFragment.setContext(this);
+        clientesHojeFragment.setDatabaseHelper(databaseHelper);
+
+        return clientesHojeFragment;
+    }
+
+    private ClientesSemanaFragment preparaSemanaFragment(){
+        ClientesSemanaFragment clientesSemanaFragment = new ClientesSemanaFragment();
+        clientesSemanaFragment.setContext(this);
+        clientesSemanaFragment.setDatabaseHelper(databaseHelper);
+
+        return clientesSemanaFragment;
+    }
+
+    private ClientesMesFragment preparaMesFragment(){
+        ClientesMesFragment clientesMesFragment = new ClientesMesFragment();
+        clientesMesFragment.setContext(this);
+        clientesMesFragment.setDatabaseHelper(databaseHelper);
+
+        return clientesMesFragment;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

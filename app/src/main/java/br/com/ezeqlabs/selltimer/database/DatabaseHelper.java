@@ -9,8 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import br.com.ezeqlabs.selltimer.helpers.PairHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Contato;
 import br.com.ezeqlabs.selltimer.model.Email;
@@ -236,6 +239,93 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return contatos;
+    }
+
+    public List<PairHelper> getClientesHoje(){
+        List<PairHelper> retorno = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
+                "ON id = cliente_id_con " +
+                "WHERE data >= date('now', '-3 day') GROUP BY id ORDER BY data DESC ";
+
+        Cursor c = getReadableDatabase().rawQuery(sql, null);
+
+        while(c.moveToNext()){
+            Contato contato = new Contato();
+            Cliente cliente = new Cliente();
+
+            cliente.setId(c.getLong(c.getColumnIndex("id")));
+            cliente.setNome(c.getString(c.getColumnIndex("nome")));
+
+            contato.setId(c.getLong(c.getColumnIndex("id_con")));
+            contato.setDataDoBanco(c.getString(c.getColumnIndex("data")));
+            contato.setAnotacoes(c.getString(c.getColumnIndex("anotacoes")));
+            contato.setInteresse(c.getString(c.getColumnIndex("interesse")));
+            contato.setClienteId(c.getLong(c.getColumnIndex("cliente_id_con")));
+
+            PairHelper par = new PairHelper(cliente, contato);
+
+            retorno.add(par);
+        }
+
+        return retorno;
+    }
+
+    public List<PairHelper> getClientesSemana(){
+        List<PairHelper> retorno = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
+                "ON id = cliente_id_con " +
+                "WHERE data <= date('now', '-4 day') AND data >= date('now', '-7 day') GROUP BY id ORDER BY data DESC ";
+
+        Cursor c = getReadableDatabase().rawQuery(sql, null);
+
+        while(c.moveToNext()){
+            Contato contato = new Contato();
+            Cliente cliente = new Cliente();
+
+            cliente.setId(c.getLong(c.getColumnIndex("id")));
+            cliente.setNome(c.getString(c.getColumnIndex("nome")));
+
+            contato.setId(c.getLong(c.getColumnIndex("id_con")));
+            contato.setDataDoBanco(c.getString(c.getColumnIndex("data")));
+            contato.setAnotacoes(c.getString(c.getColumnIndex("anotacoes")));
+            contato.setInteresse(c.getString(c.getColumnIndex("interesse")));
+            contato.setClienteId(c.getLong(c.getColumnIndex("cliente_id_con")));
+
+            PairHelper par = new PairHelper(cliente, contato);
+
+            retorno.add(par);
+        }
+
+        return retorno;
+    }
+
+    public List<PairHelper> getClientesMes(){
+        List<PairHelper> retorno = new ArrayList<>();
+        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
+                "ON id = cliente_id_con " +
+                "WHERE data <= date('now', '-8 day') AND data >= date('now', '-30 day') GROUP BY id ORDER BY data DESC ";
+
+        Cursor c = getReadableDatabase().rawQuery(sql, null);
+
+        while(c.moveToNext()){
+            Contato contato = new Contato();
+            Cliente cliente = new Cliente();
+
+            cliente.setId(c.getLong(c.getColumnIndex("id")));
+            cliente.setNome(c.getString(c.getColumnIndex("nome")));
+
+            contato.setId(c.getLong(c.getColumnIndex("id_con")));
+            contato.setDataDoBanco(c.getString(c.getColumnIndex("data")));
+            contato.setAnotacoes(c.getString(c.getColumnIndex("anotacoes")));
+            contato.setInteresse(c.getString(c.getColumnIndex("interesse")));
+            contato.setClienteId(c.getLong(c.getColumnIndex("cliente_id_con")));
+
+            PairHelper par = new PairHelper(cliente, contato);
+
+            retorno.add(par);
+        }
+
+        return retorno;
     }
 
 }

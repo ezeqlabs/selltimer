@@ -130,35 +130,44 @@ public class DetalheClienteActivity extends AppCompatActivity {
     }
 
     private void preparaEnderecos(){
-        if(enderecos.size() > 0){
-            for(Endereco endereco : enderecos){
-                geraEndereco(endereco);
+        if(enderecos != null){
+            if(enderecos.size() > 0){
+                for(Endereco endereco : enderecos){
+                    geraEndereco(endereco);
+                }
+            }else{
+                apagaView(R.id.titulo_endereco_detalhe, R.id.container_enderecos_detalhe);
             }
-        }else{
-            findViewById(R.id.titulo_endereco_detalhe).setVisibility(View.GONE);
-            findViewById(R.id.container_enderecos_detalhe).setVisibility(View.GONE);
+        } else{
+            apagaView(R.id.titulo_endereco_detalhe, R.id.container_enderecos_detalhe);
         }
     }
 
     private void preparaTelefone(){
-        if(telefones.size() > 0){
-            for(Telefone telefone : telefones){
-                geraTelefone(telefone);
+        if(telefones != null){
+            if(telefones.size() > 0){
+                for(Telefone telefone : telefones){
+                    geraTelefone(telefone);
+                }
+            }else{
+                apagaView(R.id.titulo_telefone_detalhe, R.id.container_telefones_detalhe);
             }
         }else{
-            findViewById(R.id.titulo_telefone_detalhe).setVisibility(View.GONE);
-            findViewById(R.id.container_telefones_detalhe).setVisibility(View.GONE);
+            apagaView(R.id.titulo_telefone_detalhe, R.id.container_telefones_detalhe);
         }
     }
 
     private void preparaEmail(){
-        if(emails.size() > 0){
-            for(Email email : emails){
-                geraEmail(email);
+        if(emails != null){
+            if(emails.size() > 0){
+                for(Email email : emails){
+                    geraEmail(email);
+                }
+            }else{
+                apagaView(R.id.titulo_emails_detalhes, R.id.container_emails_detalhe);
             }
         }else{
-            findViewById(R.id.titulo_emails_detalhes).setVisibility(View.GONE);
-            findViewById(R.id.container_emails_detalhe).setVisibility(View.GONE);
+            apagaView(R.id.titulo_emails_detalhes, R.id.container_emails_detalhe);
         }
     }
 
@@ -195,5 +204,10 @@ public class DetalheClienteActivity extends AppCompatActivity {
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
         detalhe.putExtra(Constantes.CONTATO_INTENT, contato);
         startActivity(detalhe);
+    }
+
+    private void apagaView(int titulo, int container){
+        findViewById(titulo).setVisibility(View.GONE);
+        findViewById(container).setVisibility(View.GONE);
     }
 }
