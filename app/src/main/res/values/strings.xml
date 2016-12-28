@@ -22,9 +22,12 @@
     <string name="action_deletar">Deletar</string>
 
     <!-- MAIN ACTIVITY -->
+    <string name="tab_hoje">Hoje</string>
+    <string name="tab_semana">Semana</string>
+    <string name="tab_mes">Mês</string>
     <string name="contatos_hoje">Clientes para ligar hoje</string>
     <string name="contatos_semana">Clientes para ligar essa semana</string>
-    <string name="contatos_mes">Clientes para ligar esse mes</string>
+    <string name="contatos_mes">Clientes para ligar esse mês</string>
 
     <!-- CLIENTES ACTIVITY -->
     <string name="title_activity_clientes">Clientes</string>
