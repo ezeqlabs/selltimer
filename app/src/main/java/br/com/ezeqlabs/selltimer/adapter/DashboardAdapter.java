@@ -51,7 +51,13 @@ public class DashboardAdapter extends BaseAdapter {
         TextView textoItem = (TextView) v.findViewById(R.id.texto_item_dashboard);
 
         tituloItem.setText(titulo);
-        textoItem.setText( contato.getAnotacoes() );
+
+        if( !contato.getAnotacoes().equalsIgnoreCase("") ){
+            textoItem.setText( contato.getAnotacoes() );
+        }else{
+            textoItem.setVisibility(View.GONE);
+        }
+
 
         return v;
     }
