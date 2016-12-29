@@ -22,7 +22,19 @@ public class ContatoHelper {
         contato = new Contato();
     }
 
-    public Contato pegaContatoDoFormulario() throws ParseException {
+    public EditText getData() {
+        return data;
+    }
+
+    public EditText getAnotacoes() {
+        return anotacoes;
+    }
+
+    public Spinner getInteresse() {
+        return interesse;
+    }
+
+    public Contato pegaContatoDoFormulario(){
         contato.setData(data.getText().toString());
         contato.setInteresse(interesse.getSelectedItem().toString());
         contato.setAnotacoes(anotacoes.getText().toString());

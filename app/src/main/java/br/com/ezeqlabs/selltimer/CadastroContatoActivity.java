@@ -2,6 +2,7 @@ package br.com.ezeqlabs.selltimer;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.onurciner.toastox.ToastOX;
@@ -29,6 +31,8 @@ public class CadastroContatoActivity extends AppCompatActivity {
     private Cliente cliente;
     private ContatoHelper helper;
     private DatabaseHelper databaseHelper;
+    private Contato contato;
+    private Long clienteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +68,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
-                try {
-                    salvarContato();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                finish();
+                salvarContato();
                 return false;
 
             default:
@@ -77,22 +76,46 @@ public class CadastroContatoActivity extends AppCompatActivity {
         }
     }
 
-    private void salvarContato() throws ParseException {
-        Contato contato = helper.pegaContatoDoFormulario();
+    private void salvarContato(){
+        contato = helper.pegaContatoDoFormulario();
         databaseHelper = new DatabaseHelper(this);
+        clienteId = cliente.getId();
 
-        Long clienteId = cliente.getId();
+        if(contatoValido()){
+            databaseHelper.insereContato(contato, clienteId);
+            databaseHelper.close();
+            redirecionaContato();
+        }
+    }
 
-        databaseHelper.insereContato(contato, clienteId);
+    private boolean contatoValido(){
+        boolean valido = true;
 
-        databaseHelper.close();
+        if( contato.getData().equalsIgnoreCase("") ){
+            helper.getData().setError(getString(R.string.erro_data));
+            valido = false;
+        }
 
+        if( contato.getInteresse().equalsIgnoreCase(getString(R.string.label_interesse)) ){
+            TextView errorText = (TextView) helper.getInteresse().getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText(getString(R.string.erro_interesse));
+
+            valido = false;
+        }
+
+        return valido;
+    }
+
+    private void redirecionaContato(){
         ToastOX.ok(this, getString(R.string.contato_salvo_sucesso), Toast.LENGTH_LONG);
 
         Intent detalhe = new Intent(this, DetalheContatoActivity.class);
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
         detalhe.putExtra(Constantes.CONTATO_INTENT, contato);
         startActivity(detalhe);
+        finish();
     }
 
     public void abreDatepicker(View v){

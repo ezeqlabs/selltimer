@@ -41,7 +41,7 @@ public class NotificacaoService extends IntentService {
                 .setContentTitle(res.getString(R.string.titulo_notificacao))
                 .setContentText(res.getString(R.string.texto_notificacao))
                 .build();
-        
+
         notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
         notification.defaults |= Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE;
         notification.ledARGB = 0xFFFFA500;

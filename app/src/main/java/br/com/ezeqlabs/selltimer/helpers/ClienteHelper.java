@@ -41,6 +41,10 @@ public class ClienteHelper {
         return cliente;
     }
 
+    public EditText getNome() {
+        return nome;
+    }
+
     private List<Endereco> listaEnderecos(){
         List<Endereco> listEnderecos = new ArrayList<>();
 

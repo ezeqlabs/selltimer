@@ -32,6 +32,8 @@ public class CadastroClientesActivity extends AppCompatActivity {
     private List<EditText> listaEmails = new ArrayList<>();
     private ClienteHelper helper;
     private DatabaseHelper databaseHelper;
+    private Cliente cliente;
+    private Long clienteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +97,35 @@ public class CadastroClientesActivity extends AppCompatActivity {
     }
 
     private void salvarClienteCompleto(){
-        Cliente cliente = helper.pegaClienteDoFormulario();
+        cliente = helper.pegaClienteDoFormulario();
         databaseHelper = new DatabaseHelper(this);
 
-        Long clienteId = databaseHelper.insereCliente(cliente);
+        if(clienteValido()){
+            clienteId = databaseHelper.insereCliente(cliente);
 
+            salvaBlocosCliente();
+            redirecionaClienteSalvo();
+        }
+    }
+
+    private boolean clienteValido(){
+        boolean valido = true;
+        if(cliente.getNome().equalsIgnoreCase("")){
+            helper.getNome().setError(getString(R.string.erro_nome));
+            valido = false;
+        }
+        return valido;
+    }
+
+    private void salvaBlocosCliente(){
         salvarEndereco(cliente.getEnderecos(), clienteId);
         salvarTelefones(cliente.getTelefones(), clienteId);
         salvarEmails(cliente.getEmails(), clienteId);
 
         databaseHelper.close();
+    }
 
+    private void redirecionaClienteSalvo(){
         cliente.setId(clienteId);
 
         ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_LONG);
