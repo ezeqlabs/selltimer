@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "472209022177",
+    "firebase_url": "https://selltimer-free.firebaseio.com",
+    "project_id": "selltimer-free",
+    "storage_bucket": "selltimer-free.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472209022177:android:a2e69822e6032c43",
+        "android_client_info": {
+          "package_name": "br.com.ezeqlabs.selltimer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472209022177-5me248hah47mh0sf46t3aq7uglp05cpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJHQGMHN5SjXJa9WReXe29JIq0nl8I03M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
