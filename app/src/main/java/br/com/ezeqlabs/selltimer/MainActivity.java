@@ -24,6 +24,7 @@ import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 import br.com.ezeqlabs.selltimer.fragment.ClientesHojeFragment;
 import br.com.ezeqlabs.selltimer.fragment.ClientesMesFragment;
 import br.com.ezeqlabs.selltimer.fragment.ClientesSemanaFragment;
+import br.com.ezeqlabs.selltimer.service.AlarmeReceiver;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        AlarmeReceiver.preparaAlarme(this);
 
     }
 

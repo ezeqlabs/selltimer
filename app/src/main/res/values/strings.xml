@@ -80,4 +80,8 @@
     <string name="titulo_chooser_feedback">Enviar %1$s usando:</string>
     <string name="erro_chooser_feedback">Nenhum aplicativo de envio de e-mail encontrado</string>
 
+    <!-- NOTIFICACOES -->
+    <string name="titulo_notificacao">Não perca mais nenhuma venda</string>
+    <string name="texto_notificacao">Acesse o SellTimer e veja os clientes que você tem para ligar hoje</string>
+
 </resources>
