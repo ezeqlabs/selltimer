@@ -1,99 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.ezeqlabs.selltimer.DetalheClienteActivity">
+    android:orientation="vertical"
+    tools:context="br.com.ezeqlabs.selltimer.DetalheClienteActivity"
+    >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         >
 
-        <TextView
-            android:id="@+id/nome_cliente_detalhe"
-            style="@style/TituloCliente"/>
-
-        <TextView
-            android:id="@+id/titulo_telefone_detalhe"
-            style="@style/TituloInformacao"
-            android:text="@string/telefones_detalhe_cliente"/>
-
-        <LinearLayout
-            android:id="@+id/container_telefones_detalhe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:orientation="vertical" />
-
-        <TextView
-            android:id="@+id/titulo_endereco_detalhe"
-            style="@style/TituloInformacao"
-            android:text="@string/enderecos_detalhe_cliente"/>
-
-        <LinearLayout
-            android:id="@+id/container_enderecos_detalhe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:orientation="vertical" />
-
-        <TextView
-            android:id="@+id/titulo_emails_detalhes"
-            style="@style/TituloInformacao"
-            android:text="@string/emails_detalhe_cliente"/>
-
-        <LinearLayout
-            android:id="@+id/container_emails_detalhe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:orientation="vertical" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/separador_titulo_informacao"
-            android:paddingLeft="@dimen/margem_titulo_informacao"
-            android:paddingRight="@dimen/margem_titulo_informacao"
-            android:paddingBottom="@dimen/separador_titulo_informacao"
-            android:background="@color/azulAliceBlue"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_weight="1"
+            >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/contatos_detalhe_cliente"/>
+                android:id="@+id/nome_cliente_detalhe"
+                style="@style/TituloCliente"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                />
+            <TextView
+                android:id="@+id/titulo_telefone_detalhe"
+                style="@style/TituloInformacao"
+                android:text="@string/telefones_detalhe_cliente"/>
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/container_telefones_detalhe"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_adicionar_contato"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:onClick="adicionaContato"
-                />
+                android:paddingLeft="16dp"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/titulo_endereco_detalhe"
+                style="@style/TituloInformacao"
+                android:text="@string/enderecos_detalhe_cliente"/>
+
+            <LinearLayout
+                android:id="@+id/container_enderecos_detalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/titulo_emails_detalhes"
+                style="@style/TituloInformacao"
+                android:text="@string/emails_detalhe_cliente"/>
+
+            <LinearLayout
+                android:id="@+id/container_emails_detalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/separador_titulo_informacao"
+                android:paddingLeft="@dimen/margem_titulo_informacao"
+                android:paddingRight="@dimen/margem_titulo_informacao"
+                android:paddingBottom="@dimen/separador_titulo_informacao"
+                android:background="@color/azulAliceBlue"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contatos_detalhe_cliente"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_adicionar_contato"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:onClick="adicionaContato"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_contatos_cliente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/container_contatos_cliente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+    </ScrollView>
 
-    </LinearLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_cliente"
+        />
 
-</ScrollView>
+</LinearLayout>

@@ -16,6 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +53,9 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
         atribuiVariaveis();
 
+        AdView mAdView = (AdView) findViewById(R.id.adViewCliente);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
