@@ -35,7 +35,7 @@ public class NotificacaoService extends IntentService {
         Resources res = this.getResources();
         notification = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_money)
                 .setAutoCancel(true)
                 .setPriority(8)
                 .setContentTitle(res.getString(R.string.titulo_notificacao))
