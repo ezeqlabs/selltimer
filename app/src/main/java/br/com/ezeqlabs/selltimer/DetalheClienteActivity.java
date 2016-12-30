@@ -1,6 +1,8 @@
 package br.com.ezeqlabs.selltimer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,10 +17,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.onurciner.toastox.ToastOX;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -88,6 +92,8 @@ public class DetalheClienteActivity extends AppCompatActivity {
                 startActivity(listagem);
                 this.finish();
                 return true;
+            case R.id.action_deletar:
+                exibeAlertDelete();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -216,5 +222,31 @@ public class DetalheClienteActivity extends AppCompatActivity {
     private void apagaView(int titulo, int container){
         findViewById(titulo).setVisibility(View.GONE);
         findViewById(container).setVisibility(View.GONE);
+    }
+
+    private void exibeAlertDelete(){
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_warning)
+                .setTitle(getString(R.string.title_alert_deleta_cliente))
+                .setMessage(getString(R.string.texto_alert_deleta_cliente))
+                .setPositiveButton(getString(R.string.sim), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletaCliente();
+                    }
+                })
+                .setNegativeButton(getString(R.string.nao), null)
+                .show();
+    }
+
+    private void deletaCliente(){
+        databaseHelper.deletaTodosContatosCliente(cliente);
+        databaseHelper.deletaTodosEmailsCliente(cliente);
+        databaseHelper.deletaTodosEnderecosCliente(cliente);
+        databaseHelper.deletaTodosTelefonesCliente(cliente);
+        databaseHelper.deletaCliente(cliente);
+
+        ToastOX.ok(this, getString(R.string.cliente_deletado_sucesso), Toast.LENGTH_LONG);
+        finish();
     }
 }

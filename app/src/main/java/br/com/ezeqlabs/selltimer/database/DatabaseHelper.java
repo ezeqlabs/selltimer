@@ -79,6 +79,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return clientes;
     }
 
+    public void deletaCliente(Cliente cliente){
+        String[] args = { cliente.getId().toString() };
+        getWritableDatabase().delete(TABELA_CLIENTES, "id=?", args);
+    }
+
     private String criaTabelaEnderecos(){
         String sql = "CREATE TABLE " + TABELA_ENDERECOS
                 + " (id_end INTEGER PRIMARY KEY, "
@@ -116,6 +121,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return enderecos;
+    }
+
+    public void deletaTodosEnderecosCliente(Cliente cliente){
+        String[] args = { cliente.getId().toString() };
+        getWritableDatabase().delete(TABELA_ENDERECOS, "cliente_id_end=?", args);
     }
 
     private String criaTabelaEmails(){
@@ -157,6 +167,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return emails;
     }
 
+    public void deletaTodosEmailsCliente(Cliente cliente){
+        String[] args = { cliente.getId().toString() };
+        getWritableDatabase().delete(TABELA_EMAILS, "cliente_id_em=?", args);
+    }
+
     private String criaTabelaTelefones(){
         String sql = "CREATE TABLE " + TABELA_TELEFONES
                 + "(id_tel INTEGER PRIMARY KEY, "
@@ -194,6 +209,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return telefones;
+    }
+
+    public void deletaTodosTelefonesCliente(Cliente cliente){
+        String[] args = { cliente.getId().toString() };
+        getWritableDatabase().delete(TABELA_TELEFONES, "cliente_id_tel=?", args);
     }
 
     private String criaTabelaContatos(){
@@ -244,6 +264,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deletaContatoCliente(Contato contato){
         String[] args = { contato.getId().toString() };
         getWritableDatabase().delete(TABELA_CONTATOS, "id_con=?", args);
+    }
+
+    public void deletaTodosContatosCliente(Cliente cliente){
+        String[] args = { cliente.getId().toString() };
+        getWritableDatabase().delete(TABELA_CONTATOS, "cliente_id_con=?", args);
     }
 
     public List<PairHelper> getClientesHoje(){

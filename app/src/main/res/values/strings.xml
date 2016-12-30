@@ -66,6 +66,9 @@
     <string name="contatos_detalhe_cliente">Contatos:</string>
     <string name="btn_adicionar_contato">Adicionar</string>
     <string name="banner_ad_cliente">ca-app-pub-8736689435854328/5942021597</string>
+    <string name="title_alert_deleta_cliente">Excluindo cliente</string>
+    <string name="texto_alert_deleta_cliente">Realmente deseja excluir este cliente e todas suas informações?</string>
+    <string name="cliente_deletado_sucesso">Cliente deletado com sucesso</string>
 
     <!-- DETALHE CONTATO ACTIVITY -->
     <string name="title_activity_detalhe_contato">Detalhe do contato</string>
@@ -74,8 +77,8 @@
     <string name="descricao_detalhe_contato">Descrição do contato:</string>
     <string name="informacoes_detalhe_contato">Informações do contato:</string>
     <string name="banner_ad_contato">ca-app-pub-8736689435854328/8895487994</string>
-    <string name="title_alert_deleta">Excluindo contato</string>
-    <string name="texto_alert_deleta">Realmente deseja excluir este contato?</string>
+    <string name="title_alert_deleta_contato">Excluindo contato</string>
+    <string name="texto_alert_deleta_contato">Realmente deseja excluir este contato?</string>
     <string name="contato_deletado_sucesso">Contato deletado com sucesso</string>
 
     <!-- SOBRE ACTIVITY -->

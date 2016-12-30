@@ -80,8 +80,8 @@ public class DetalheContatoActivity extends AppCompatActivity {
     private void exibeAlertDelete(){
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_warning)
-                .setTitle(getString(R.string.title_alert_deleta))
-                .setMessage(getString(R.string.texto_alert_deleta))
+                .setTitle(getString(R.string.title_alert_deleta_contato))
+                .setMessage(getString(R.string.texto_alert_deleta_contato))
                 .setPositiveButton(getString(R.string.sim), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
