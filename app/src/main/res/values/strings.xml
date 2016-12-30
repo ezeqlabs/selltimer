@@ -2,6 +2,8 @@
     <string name="app_name">SellTimer</string>
     <string name="ezeqlabs">EzeqLabs</string>
     <string name="app_admob_id">ca-app-pub-8736689435854328~9035088790</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
 
     <!-- MENUS -->
     <string name="title_clientes_sidemenu">Clientes</string>
@@ -72,6 +74,9 @@
     <string name="descricao_detalhe_contato">Descrição do contato:</string>
     <string name="informacoes_detalhe_contato">Informações do contato:</string>
     <string name="banner_ad_contato">ca-app-pub-8736689435854328/8895487994</string>
+    <string name="title_alert_deleta">Excluindo contato</string>
+    <string name="texto_alert_deleta">Realmente deseja excluir este contato?</string>
+    <string name="contato_deletado_sucesso">Contato deletado com sucesso</string>
 
     <!-- SOBRE ACTIVITY -->
     <string name="title_activity_sobre">Sobre o aplicativo</string>

@@ -241,6 +241,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return contatos;
     }
 
+    public void deletaContatoCliente(Contato contato){
+        String[] args = { contato.getId().toString() };
+        getWritableDatabase().delete(TABELA_CONTATOS, "id_con=?", args);
+    }
+
     public List<PairHelper> getClientesHoje(){
         List<PairHelper> retorno = new ArrayList<>();
         String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
