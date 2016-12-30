@@ -105,6 +105,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
+            <TextView
+                android:id="@+id/mensagem_cliente_detalhe"
+                android:text="@string/texto_sem_contatos_detalhe"
+                style="@style/MensagemVazio"
+                />
+
         </LinearLayout>
 
     </ScrollView>

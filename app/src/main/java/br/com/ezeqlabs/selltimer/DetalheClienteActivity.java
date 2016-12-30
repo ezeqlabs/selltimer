@@ -45,7 +45,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     private Cliente cliente;
     private Contato contato;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this);
-    private TextView nomeCliente;
+    private TextView nomeCliente, mensagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +129,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
         llEmail = (LinearLayout) findViewById(R.id.container_emails_detalhe);
         llContato = (LinearLayout) findViewById(R.id.container_contatos_cliente);
         nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
+        mensagem = (TextView) findViewById(R.id.mensagem_cliente_detalhe);
 
         cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
         enderecos = cliente.getEnderecos();
@@ -184,7 +185,10 @@ public class DetalheClienteActivity extends AppCompatActivity {
 
     private void preparaContatos(){
         contatos = databaseHelper.getContatosCliente( cliente.getId() );
+
         if(!contatos.isEmpty()){
+            mensagem.setVisibility(View.GONE);
+            llContato.setVisibility(View.VISIBLE);
 
             for(Contato con : contatos){
                 Button botao = (Button) LayoutInflater.from(this).inflate(R.layout.button_contato, null);
@@ -194,6 +198,9 @@ public class DetalheClienteActivity extends AppCompatActivity {
                 llContato.addView(botao);
             }
 
+        }else{
+            mensagem.setVisibility(View.VISIBLE);
+            llContato.setVisibility(View.GONE);
         }
     }
 

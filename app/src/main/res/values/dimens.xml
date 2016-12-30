@@ -7,6 +7,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="padding_mensagens">16dp</dimen>
+
     <!-- TELAS DE DETALHE -->
     <dimen name="margem_titulo_informacao">16dp</dimen>
     <dimen name="separador_titulo_informacao">5dp</dimen>

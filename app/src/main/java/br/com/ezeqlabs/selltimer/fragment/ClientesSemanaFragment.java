@@ -23,25 +23,65 @@ import br.com.ezeqlabs.selltimer.model.Contato;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class ClientesSemanaFragment extends Fragment {
-    private TextView titulo;
+    private TextView titulo, mensagem;
     private ListView listView;
     private Context context;
     private DatabaseHelper databaseHelper;
+    List<PairHelper> listaPares;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_clientes, container, false);
 
+        preparaVariaveis(v);
+        preparaTitulo();
+        preparaExibicao();
+
+        return v;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public void setDatabaseHelper(DatabaseHelper databaseHelper) {
+        this.databaseHelper = databaseHelper;
+    }
+
+    private void preparaVariaveis(View v){
         titulo = (TextView) v.findViewById(R.id.titulo_cliente_dashboard);
+        mensagem = (TextView) v.findViewById(R.id.mensagem_cliente_dashboard);
+        listView = (ListView) v.findViewById(R.id.listview_dashboard);
+        listaPares = databaseHelper.getClientesSemana();
+    }
+
+    private void preparaTitulo(){
         titulo.setText(getString(R.string.contatos_semana));
         titulo.setBackgroundColor(getResources().getColor(R.color.amareloGoldenrod));
         titulo.setTextColor(getResources().getColor(R.color.branco));
+    }
 
-        listView = (ListView) v.findViewById(R.id.listview_dashboard);
+    private void preparaExibicao(){
+        if( listaPares.size() > 0 ){
+            preparaListView();
+        }else{
+            preparaMensagem();
+        }
+    }
+
+    private void preparaMensagem(){
+        mensagem.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.GONE);
+
+        mensagem.setText(R.string.texto_sem_contatos_semana);
+    }
+
+    private void preparaListView(){
+        mensagem.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
+
         listView.setBackgroundColor(getResources().getColor(R.color.amareloLightYellow));
-
-        final List<PairHelper> listaPares = databaseHelper.getClientesSemana();
 
         listView.setAdapter( new DashboardAdapter(context, listaPares) );
 
@@ -57,15 +97,5 @@ public class ClientesSemanaFragment extends Fragment {
                 startActivity(detalhe);
             }
         });
-
-        return v;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public void setDatabaseHelper(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
     }
 }

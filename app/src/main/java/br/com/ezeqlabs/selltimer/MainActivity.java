@@ -50,14 +50,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        AlarmeReceiver.preparaAlarme(this);
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-        AlarmeReceiver.preparaAlarme(this);
-
     }
 
     @Override

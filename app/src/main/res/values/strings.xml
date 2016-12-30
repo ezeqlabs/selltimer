@@ -31,9 +31,13 @@
     <string name="contatos_hoje">Clientes para ligar hoje</string>
     <string name="contatos_semana">Clientes para ligar essa semana</string>
     <string name="contatos_mes">Clientes para ligar esse mês</string>
+    <string name="texto_sem_contatos_hoje">Você não tem nenhum cliente para ligar hoje</string>
+    <string name="texto_sem_contatos_semana">Você não tem nenhum cliente para ligar essa semana</string>
+    <string name="texto_sem_contatos_mes">Você não tem nenhum cliente para ligar esse mês</string>
 
     <!-- CLIENTES ACTIVITY -->
     <string name="title_activity_clientes">Clientes</string>
+    <string name="texto_sem_clientes">Você ainda não tem nenhum cliente cadastrado</string>
 
     <!-- CADASTRO CLIENTES ACTIVITY -->
     <string name="title_activity_cadastro_clientes">Cadastro de Cliente</string>
@@ -69,6 +73,7 @@
     <string name="title_alert_deleta_cliente">Excluindo cliente</string>
     <string name="texto_alert_deleta_cliente">Realmente deseja excluir este cliente e todas suas informações?</string>
     <string name="cliente_deletado_sucesso">Cliente deletado com sucesso</string>
+    <string name="texto_sem_contatos_detalhe">Você ainda não fez contato com esse cliente</string>
 
     <!-- DETALHE CONTATO ACTIVITY -->
     <string name="title_activity_detalhe_contato">Detalhe do contato</string>
