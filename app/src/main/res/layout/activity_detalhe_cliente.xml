@@ -94,6 +94,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:onClick="adicionaContato"
+                    android:backgroundTint="@color/colorPrimary"
                     />
 
             </LinearLayout>
