@@ -33,6 +33,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private Contato contato;
     private Long clienteId;
+    private Long contatoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,12 @@ public class CadastroContatoActivity extends AppCompatActivity {
 
         helper = new ContatoHelper(this);
         cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        finish();
     }
 
     @Override
@@ -82,7 +89,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
         clienteId = cliente.getId();
 
         if(contatoValido()){
-            databaseHelper.insereContato(contato, clienteId);
+            contatoId = databaseHelper.insereContato(contato, clienteId);
             databaseHelper.close();
             redirecionaContato();
         }
@@ -109,6 +116,8 @@ public class CadastroContatoActivity extends AppCompatActivity {
     }
 
     private void redirecionaContato(){
+        contato.setId(contatoId);
+
         ToastOX.ok(this, getString(R.string.contato_salvo_sucesso), Toast.LENGTH_LONG);
 
         Intent detalhe = new Intent(this, DetalheContatoActivity.class);

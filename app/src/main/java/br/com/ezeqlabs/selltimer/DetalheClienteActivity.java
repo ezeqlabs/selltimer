@@ -88,9 +88,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
-                Intent listagem = new Intent(this, ClientesActivity.class);
-                startActivity(listagem);
-                this.finish();
+                finish();
                 return true;
             case R.id.action_deletar:
                 exibeAlertDelete();
