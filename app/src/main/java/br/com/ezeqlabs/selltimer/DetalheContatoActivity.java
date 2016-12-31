@@ -51,14 +51,6 @@ public class DetalheContatoActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
-        Intent detalheCliente = new Intent(this, DetalheClienteActivity.class);
-        detalheCliente.putExtra(Constantes.CLIENTE_INTENT, cliente);
-        startActivity(detalheCliente);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.editar, menu);
         return true;
