@@ -34,6 +34,8 @@ public class CadastroContatoActivity extends AppCompatActivity {
     private Contato contato;
     private Long clienteId;
     private Long contatoId;
+    private Spinner spinner;
+    private ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +45,9 @@ public class CadastroContatoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Spinner spinner = (Spinner) findViewById(R.id.interesse_contato);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.tipos_de_interesse, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        dataContato = (EditText) findViewById(R.id.data_contato);
-
-        helper = new ContatoHelper(this);
-        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+        preparaVariaveis();
+        preparaSpinner();
+        preparaFormulario();
     }
 
     @Override
@@ -75,7 +70,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
-                salvarContato();
+                salvaOuEditaContato();
                 return false;
 
             default:
@@ -83,15 +78,61 @@ public class CadastroContatoActivity extends AppCompatActivity {
         }
     }
 
+    private void preparaVariaveis(){
+        spinner = (Spinner) findViewById(R.id.interesse_contato);
+        dataContato = (EditText) findViewById(R.id.data_contato);
+        helper = new ContatoHelper(this);
+        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+        contato = (Contato) getIntent().getSerializableExtra(Constantes.CONTATO_INTENT);
+        clienteId = cliente.getId();
+        databaseHelper = new DatabaseHelper(this);
+    }
+
+    private void preparaSpinner(){
+        adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.tipos_de_interesse,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    private void preparaFormulario(){
+        if( contato != null ){
+            helper.colocaContatoNoFormulario(contato, adapter);
+        }
+    }
+
+    private void salvaOuEditaContato(){
+        if( contato.getId() == null ){
+            salvarContato();
+        }else{
+            atualizaContato();
+        }
+    }
+
     private void salvarContato(){
         contato = helper.pegaContatoDoFormulario();
-        databaseHelper = new DatabaseHelper(this);
-        clienteId = cliente.getId();
 
         if(contatoValido()){
             contatoId = databaseHelper.insereContato(contato, clienteId);
             databaseHelper.close();
-            redirecionaContato();
+            redirecionaContato(R.string.contato_salvo_sucesso);
+        }
+    }
+
+    private void atualizaContato(){
+        Contato tmp = helper.pegaContatoDoFormulario();
+
+        contato.setData( tmp.getData() );
+        contato.setInteresse( tmp.getInteresse() );
+        contato.setAnotacoes( tmp.getAnotacoes() );
+
+        if(contatoValido()){
+            contatoId = contato.getId();
+            databaseHelper.atualizaContato(contato, clienteId);
+            databaseHelper.close();
+            redirecionaContato(R.string.contato_atualizado_sucesso);
         }
     }
 
@@ -115,10 +156,10 @@ public class CadastroContatoActivity extends AppCompatActivity {
         return valido;
     }
 
-    private void redirecionaContato(){
+    private void redirecionaContato(int mensagem){
         contato.setId(contatoId);
 
-        ToastOX.ok(this, getString(R.string.contato_salvo_sucesso), Toast.LENGTH_LONG);
+        ToastOX.ok(this, getString(mensagem), Toast.LENGTH_LONG);
 
         Intent detalhe = new Intent(this, DetalheContatoActivity.class);
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);

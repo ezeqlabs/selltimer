@@ -1,5 +1,6 @@
 package br.com.ezeqlabs.selltimer.helpers;
 
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -13,6 +14,7 @@ public class ContatoHelper {
     private EditText data, anotacoes;
     private Spinner interesse;
     private Contato contato;
+    private ArrayAdapter<CharSequence> adapter;
 
     public ContatoHelper(CadastroContatoActivity activity){
         data = (EditText) activity.findViewById(R.id.data_contato);
@@ -40,5 +42,16 @@ public class ContatoHelper {
         contato.setAnotacoes(anotacoes.getText().toString());
 
         return contato;
+    }
+
+    public void colocaContatoNoFormulario(Contato contato, ArrayAdapter<CharSequence> adapter){
+        data.setText(contato.getData());
+        anotacoes.setText(contato.getAnotacoes());
+        setSpinner(contato, adapter);
+    }
+
+    private void setSpinner(Contato contato, ArrayAdapter<CharSequence> adapter){
+        int posicao = adapter.getPosition(contato.getInteresse());
+        interesse.setSelection(posicao);
     }
 }

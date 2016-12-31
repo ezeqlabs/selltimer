@@ -240,6 +240,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return getWritableDatabase().insert(TABELA_CONTATOS, null, values);
     }
 
+    public void atualizaContato(Contato contato, Long clienteId){
+        ContentValues values = new ContentValues();
+
+        values.put("data", contato.getDataParaBanco());
+        values.put("anotacoes", contato.getAnotacoes());
+        values.put("interesse", contato.getInteresse());
+        values.put("cliente_id_con", clienteId);
+
+        String[] args = { contato.getId().toString() };
+        getWritableDatabase().update(TABELA_CONTATOS, values, "id_con=?", args);
+    }
+
     public List<Contato> getContatosCliente(Long idCliente){
         List<Contato> contatos = new ArrayList<>();
         String sql = "SELECT * FROM " + TABELA_CONTATOS + " WHERE cliente_id_con = "+ idCliente +" ORDER BY data DESC;";

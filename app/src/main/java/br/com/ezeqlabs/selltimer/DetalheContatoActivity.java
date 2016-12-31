@@ -22,7 +22,9 @@ import br.com.ezeqlabs.selltimer.utils.Constantes;
 public class DetalheContatoActivity extends AppCompatActivity {
     private Cliente cliente;
     private Contato contato;
+    private TextView tituloCliente, dataInteresse, anotacoesContato;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +34,9 @@ public class DetalheContatoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
-        contato = (Contato) getIntent().getSerializableExtra(Constantes.CONTATO_INTENT);
-
-        TextView tituloCliente = (TextView) findViewById(R.id.titulo_cliente_contato);
-        TextView dataInteresse = (TextView) findViewById(R.id.data_interesse_contato);
-        TextView anotacoesContato = (TextView) findViewById(R.id.anotacoes_contato);
-
-        String textoDataInteresse = contato.getData() + " - " + contato.getInteresse();
-
-        tituloCliente.setText(cliente.getNome());
-        dataInteresse.setText(textoDataInteresse);
-        anotacoesContato.setText(contato.getAnotacoes());
-
-        AdView mAdView = (AdView) findViewById(R.id.adViewContato);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        preparaVariaveis();
+        preparaTextos();
+        preparaPublicidade();
     }
 
     @Override
@@ -62,11 +51,46 @@ public class DetalheContatoActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.action_editar:
+                abreEdicao();
+                return true;
             case R.id.action_deletar:
                 exibeAlertDelete();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void preparaVariaveis(){
+        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+        contato = (Contato) getIntent().getSerializableExtra(Constantes.CONTATO_INTENT);
+
+        tituloCliente = (TextView) findViewById(R.id.titulo_cliente_contato);
+        dataInteresse = (TextView) findViewById(R.id.data_interesse_contato);
+        anotacoesContato = (TextView) findViewById(R.id.anotacoes_contato);
+        mAdView = (AdView) findViewById(R.id.adViewContato);
+    }
+
+    private void preparaTextos(){
+        String textoDataInteresse = contato.getData() + " - " + contato.getInteresse();
+
+        tituloCliente.setText(cliente.getNome());
+        dataInteresse.setText(textoDataInteresse);
+        anotacoesContato.setText(contato.getAnotacoes());
+    }
+
+    private void preparaPublicidade(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+    private void abreEdicao(){
+        Intent edicao = new Intent(this, CadastroContatoActivity.class);
+        edicao.putExtra(Constantes.CONTATO_INTENT, contato);
+        edicao.putExtra(Constantes.CLIENTE_INTENT, cliente);
+        startActivity(edicao);
+        finish();
     }
 
     private void exibeAlertDelete(){
