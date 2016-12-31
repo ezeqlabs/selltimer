@@ -1,7 +1,10 @@
 package br.com.ezeqlabs.selltimer;
 
+import android.*;
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +17,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.jksiezni.permissive.PermissionsGrantedListener;
+import com.github.jksiezni.permissive.PermissionsRefusedListener;
+import com.github.jksiezni.permissive.Permissive;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -47,6 +54,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper = new DatabaseHelper(this);
     private TextView nomeCliente, mensagem;
     private AdView mAdView;
+    private Intent ligacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        limpaLayout();
         preparaNomeCliente();
         preparaEnderecos();
         preparaTelefone();
@@ -122,7 +131,51 @@ public class DetalheClienteActivity extends AppCompatActivity {
     }
 
     private void geraTelefone(Telefone telefone){
-        llTelefone.addView(geraTextView(telefone.getTelefone()));
+        View v = LayoutInflater.from(this).inflate(R.layout.linearlayout_telefone, null);
+
+        TextView telefoneText = (TextView) v.findViewById(R.id.telefone_detalhe_cliente);
+        telefoneText.setText( telefone.getTelefone() );
+
+        ImageView fone = (ImageView) v.findViewWithTag(Constantes.TAG_FONE);
+        int id = Integer.parseInt( String.valueOf(telefone.getTelefone()).replaceAll("-", "") );
+        fone.setId( id );
+
+        llTelefone.addView(v);
+    }
+
+    public void ligaCliente(View v){
+        int numero = v.getId();
+        ligacao = new Intent(Intent.ACTION_CALL);
+        ligacao.setData(Uri.parse("tel:" + String.valueOf(numero)));
+
+        if(Permissive.checkPermission(this, Manifest.permission.CALL_PHONE)) {
+            realizaLigacao();
+        }else{
+            pedePermissaoLigacao();
+        }
+
+
+    }
+
+    private void realizaLigacao(){
+        startActivity(ligacao);
+    }
+
+    private void pedePermissaoLigacao(){
+        new Permissive.Request(Manifest.permission.CALL_PHONE)
+                .whenPermissionsGranted(new PermissionsGrantedListener() {
+                    @Override
+                    public void onPermissionsGranted(String[] permissions) throws SecurityException {
+                        startActivity(ligacao);
+                    }
+                })
+                .whenPermissionsRefused(new PermissionsRefusedListener() {
+                    @Override
+                    public void onPermissionsRefused(String[] permissions) {
+                        exibeAlertPermissaoNegada();
+                    }
+                })
+                .execute(this);
     }
 
     private void geraEmail(Email email){
@@ -256,6 +309,21 @@ public class DetalheClienteActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton(getString(R.string.nao), null)
+                .show();
+    }
+
+    private void exibeAlertPermissaoNegada(){
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_warning)
+                .setTitle(getString(R.string.title_alert_permissao_negada))
+                .setMessage(getString(R.string.texto_alert_permissao_telefone_negada))
+                .setPositiveButton(getString(R.string.ok), null)
+                .setNegativeButton(getString(R.string.tentar_novamente), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        pedePermissaoLigacao();
+                    }
+                })
                 .show();
     }
 

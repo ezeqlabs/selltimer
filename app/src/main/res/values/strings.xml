@@ -4,6 +4,9 @@
     <string name="app_admob_id">ca-app-pub-8736689435854328~9035088790</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
+    <string name="ok">OK</string>
+    <string name="tentar_novamente">Tentar novamente</string>
+    <string name="title_alert_permissao_negada">Permissão negada</string>
 
     <!-- MENUS -->
     <string name="title_clientes_sidemenu">Clientes</string>
@@ -76,6 +79,7 @@
     <string name="texto_alert_deleta_cliente">Realmente deseja excluir este cliente e todas suas informações?</string>
     <string name="cliente_deletado_sucesso">Cliente deletado com sucesso</string>
     <string name="texto_sem_contatos_detalhe">Você ainda não fez contato com esse cliente</string>
+    <string name="texto_alert_permissao_telefone_negada">Sem a sua permissão, não poderemos realizar ligações para seus clientes</string>
 
     <!-- DETALHE CONTATO ACTIVITY -->
     <string name="title_activity_detalhe_contato">Detalhe do contato</string>
