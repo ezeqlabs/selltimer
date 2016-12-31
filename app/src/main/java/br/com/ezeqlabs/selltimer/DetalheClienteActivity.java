@@ -127,7 +127,16 @@ public class DetalheClienteActivity extends AppCompatActivity {
     }
 
     private void geraEndereco(Endereco endereco){
-        llEndereco.addView(geraTextView(endereco.getEndereco()));
+        View v = LayoutInflater.from(this).inflate(R.layout.linearlayout_endereco, null);
+
+        TextView enderecoText = (TextView) v.findViewById(R.id.endereco_detalhe_cliente);
+        enderecoText.setText( endereco.getEndereco() );
+
+        ImageView mapa = (ImageView) v.findViewWithTag(Constantes.TAG_MAPA);
+        int id = Integer.parseInt(String.valueOf( endereco.getId() ));
+        mapa.setId(id);
+
+        llEndereco.addView(v);
     }
 
     private void geraTelefone(Telefone telefone){
@@ -178,6 +187,26 @@ public class DetalheClienteActivity extends AppCompatActivity {
                 .execute(this);
     }
 
+    public void abreMapaCliente(View v){
+        int numero = v.getId();
+        String endereco = "";
+
+        if(enderecos != null){
+            if(enderecos.size() > 0){
+                for( Endereco tmp : enderecos ){
+                    if( numero == Integer.parseInt(String.valueOf(tmp.getId())) ){
+                        endereco = tmp.getEndereco();
+                    }
+                }
+            }
+        }
+
+        String uri = "geo:0,0?q=" + endereco;
+        Intent mapa = new Intent(Intent.ACTION_VIEW);
+        mapa.setData(Uri.parse(uri));
+        startActivity(mapa);
+    }
+
     private void geraEmail(Email email){
         llEmail.addView(geraTextView(email.getEmail()));
     }
@@ -200,9 +229,9 @@ public class DetalheClienteActivity extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adViewCliente);
 
         cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
-        enderecos = cliente.getEnderecos();
-        telefones = cliente.getTelefones();
-        emails = cliente.getEmails();
+        enderecos = databaseHelper.getEnderecosCliente(cliente.getId());
+        telefones = databaseHelper.getTelefonesCliente(cliente.getId());
+        emails = databaseHelper.getEmailsCliente(cliente.getId());
     }
 
     private void preparaNomeCliente(){
