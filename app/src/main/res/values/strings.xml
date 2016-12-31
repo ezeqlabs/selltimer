@@ -66,6 +66,7 @@
     <string name="erro_data">Insira a data do contato</string>
     <string name="erro_interesse">Escolha o nível de interesse</string>
     <string name="banner_ad_cadastro_contato">ca-app-pub-8736689435854328/3208881196</string>
+    <string name="erro_atualizar_contato">Erro ao atualizar contato. Tente novamente</string>
 
     <!-- DETALHE CLIENTE ACTIVITY -->
     <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>

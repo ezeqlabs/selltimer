@@ -129,10 +129,15 @@ public class CadastroContatoActivity extends AppCompatActivity {
         contato.setAnotacoes( tmp.getAnotacoes() );
 
         if(contatoValido()){
-            contatoId = contato.getId();
-            databaseHelper.atualizaContato(contato, clienteId);
-            databaseHelper.close();
-            redirecionaContato(R.string.contato_atualizado_sucesso);
+            if( contato.getId() != null ) {
+                contatoId = contato.getId();
+                databaseHelper.atualizaContato(contato, clienteId);
+                databaseHelper.close();
+                redirecionaContato(R.string.contato_atualizado_sucesso);
+            }else{
+                ToastOX.error(this, getString(R.string.erro_atualizar_contato), Toast.LENGTH_LONG);
+                voltaParaDetalhe();
+            }
         }
     }
 
@@ -158,9 +163,11 @@ public class CadastroContatoActivity extends AppCompatActivity {
 
     private void redirecionaContato(int mensagem){
         contato.setId(contatoId);
-
         ToastOX.ok(this, getString(mensagem), Toast.LENGTH_LONG);
+        voltaParaDetalhe();
+    }
 
+    private void voltaParaDetalhe(){
         Intent detalhe = new Intent(this, DetalheContatoActivity.class);
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
         detalhe.putExtra(Constantes.CONTATO_INTENT, contato);
