@@ -79,6 +79,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return clientes;
     }
 
+    public void atualizaCliente(Cliente cliente){
+        ContentValues values = new ContentValues();
+
+        values.put("nome", cliente.getNome());
+
+        String[] args = { cliente.getId().toString() };
+        getWritableDatabase().update(TABELA_CLIENTES, values, "id=?", args);
+    }
+
     public void deletaCliente(Cliente cliente){
         String[] args = { cliente.getId().toString() };
         getWritableDatabase().delete(TABELA_CLIENTES, "id=?", args);

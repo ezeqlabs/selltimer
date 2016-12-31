@@ -43,11 +43,28 @@ public class CadastroClientesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        preparaVariaveis();
+        preparaFormulario();
+    }
+
+    private void preparaVariaveis(){
         llEnderecos = (LinearLayout) findViewById(R.id.container_enderecos);
         llTelefones = (LinearLayout) findViewById(R.id.container_telefones);
         llEmails = (LinearLayout) findViewById(R.id.container_emails);
+        cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
 
         helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos, listaTelefones, listaEmails);
+        databaseHelper = new DatabaseHelper(this);
+
+        if( cliente != null ){
+            clienteId = cliente.getId();
+        }
+    }
+
+    private void preparaFormulario(){
+        if( cliente != null ){
+            helper.colocaClienteNoFormulario(cliente, llEmails, llEnderecos, llTelefones);
+        }
     }
 
     public void novoEndereco(View v){
@@ -94,7 +111,7 @@ public class CadastroClientesActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_salvar:
-                salvarClienteCompleto();
+                salvaOuEditaCliente();
                 return false;
 
             default:
@@ -102,16 +119,59 @@ public class CadastroClientesActivity extends AppCompatActivity {
         }
     }
 
+    private void salvaOuEditaCliente(){
+        if( cliente == null ){
+            salvarClienteCompleto();
+        }else{
+            atualizaClienteCompleto();
+        }
+    }
+
     private void salvarClienteCompleto(){
         cliente = helper.pegaClienteDoFormulario();
-        databaseHelper = new DatabaseHelper(this);
 
         if(clienteValido()){
             clienteId = databaseHelper.insereCliente(cliente);
 
             salvaBlocosCliente();
-            redirecionaClienteSalvo();
+            redirecionaClienteSalvo(R.string.cliente_salvo_sucesso);
         }
+    }
+
+    private void atualizaClienteCompleto(){
+        Cliente tmp = helper.pegaClienteDoFormulario();
+
+        cliente.setNome( tmp.getNome() );
+        cliente.setEmails( tmp.getEmails() );
+        cliente.setEnderecos( tmp.getEnderecos() );
+        cliente.setTelefones( tmp.getTelefones() );
+
+        if(clienteValido()){
+            databaseHelper.atualizaCliente(cliente);
+
+            atualizaTelefones(cliente);
+            atualizaEnderecos(cliente);
+            atualizaEmails(cliente);
+
+            databaseHelper.close();
+
+            redirecionaClienteSalvo(R.string.cliente_atualizado_sucesso);
+        }
+    }
+
+    private void atualizaTelefones(Cliente cliente){
+        databaseHelper.deletaTodosTelefonesCliente(cliente);
+        salvarTelefones(cliente.getTelefones(), clienteId);
+    }
+
+    private void atualizaEnderecos(Cliente cliente){
+        databaseHelper.deletaTodosEnderecosCliente(cliente);
+        salvarEndereco(cliente.getEnderecos(), clienteId);
+    }
+
+    private void atualizaEmails(Cliente cliente){
+        databaseHelper.deletaTodosEmailsCliente(cliente);
+        salvarEmails(cliente.getEmails(), clienteId);
     }
 
     private boolean clienteValido(){
@@ -131,10 +191,10 @@ public class CadastroClientesActivity extends AppCompatActivity {
         databaseHelper.close();
     }
 
-    private void redirecionaClienteSalvo(){
+    private void redirecionaClienteSalvo(int mensagem){
         cliente.setId(clienteId);
 
-        ToastOX.ok(this, getString(R.string.cliente_salvo_sucesso), Toast.LENGTH_LONG);
+        ToastOX.ok(this, getString(mensagem), Toast.LENGTH_LONG);
 
         Intent detalhe = new Intent(this, DetalheClienteActivity.class);
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);

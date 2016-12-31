@@ -1,6 +1,8 @@
 package br.com.ezeqlabs.selltimer.helpers;
 
+import android.view.LayoutInflater;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,18 +18,25 @@ public class ClienteHelper {
     private EditText nome;
     private List<EditText> enderecos, telefones, emails;
     private Cliente cliente;
+    private EditText primeiroEndereco, primeiroTelefone, primeiroEmail;
+    private CadastroClientesActivity activity;
 
     public ClienteHelper(CadastroClientesActivity activity, List<EditText> listaEnderecos, List<EditText> listaTelefones, List<EditText> listaEmails){
+        this.activity = activity;
+
         nome = (EditText) activity.findViewById(R.id.nome_cliente);
 
         enderecos = listaEnderecos;
-        enderecos.add( (EditText) activity.findViewById(R.id.endereco_cliente) );
+        primeiroEndereco = (EditText) activity.findViewById(R.id.endereco_cliente);
+        enderecos.add( primeiroEndereco );
 
         telefones = listaTelefones;
-        telefones.add( (EditText) activity.findViewById(R.id.telefone_cliente) );
+        primeiroTelefone = (EditText) activity.findViewById(R.id.telefone_cliente);
+        telefones.add( primeiroTelefone );
 
         emails = listaEmails;
-        emails.add( (EditText) activity.findViewById(R.id.email_cliente) );
+        primeiroEmail = (EditText) activity.findViewById(R.id.email_cliente);
+        emails.add( primeiroEmail );
 
         cliente = new Cliente();
     }
@@ -59,6 +68,71 @@ public class ClienteHelper {
         }
 
         return listEnderecos;
+    }
+
+    public void colocaClienteNoFormulario(Cliente cliente, LinearLayout llEmail, LinearLayout llEndereco, LinearLayout llTelefone){
+        nome.setText(cliente.getNome());
+        colocaEmailNoFormulario(cliente, llEmail);
+        colocaEnderecoNoFormulario(cliente, llEndereco);
+        colocaTelefoneNoFormulario(cliente, llTelefone);
+    }
+
+    private void colocaEmailNoFormulario(Cliente cliente, LinearLayout llEmail){
+        List<Email> emailList = cliente.getEmails();
+
+        if( emailList != null ){
+            if( !emailList.isEmpty() ){
+                for(Email tmp : emailList){
+                    if( primeiroEmail.getText().toString().equalsIgnoreCase("") ){
+                        primeiroEmail.setText( tmp.getEmail() );
+                    }else{
+                        EditText editText = geraEditText( tmp.getEmail() , R.layout.edittext_email);
+                        llEmail.addView(editText);
+                        emails.add(editText);
+                    }
+                }
+            }
+        }
+    }
+
+    private void colocaEnderecoNoFormulario(Cliente cliente, LinearLayout llEndereco){
+        List<Endereco> enderecoList = cliente.getEnderecos();
+        if( enderecoList != null ){
+            if( !enderecoList.isEmpty() ){
+                for(Endereco tmp : enderecoList){
+                    if(primeiroEndereco.getText().toString().equalsIgnoreCase("")){
+                        primeiroEndereco.setText( tmp.getEndereco() );
+                    }else{
+                        EditText editText = geraEditText( tmp.getEndereco() , R.layout.edittext_endereco);
+                        llEndereco.addView(editText);
+                        enderecos.add(editText);
+                    }
+                }
+            }
+        }
+    }
+
+    private void colocaTelefoneNoFormulario(Cliente cliente, LinearLayout llTelefone){
+        List<Telefone> telefoneList = cliente.getTelefones();
+        if( telefoneList != null ){
+            if( !telefoneList.isEmpty() ){
+                for(Telefone tmp : telefoneList){
+                    if(primeiroTelefone.getText().toString().equalsIgnoreCase("")){
+                        primeiroTelefone.setText( tmp.getTelefone() );
+                    }else{
+                        EditText editText = geraEditText( tmp.getTelefone() , R.layout.edittext_telefone);
+                        llTelefone.addView(editText);
+                        telefones.add(editText);
+                    }
+                }
+            }
+        }
+    }
+
+    private EditText geraEditText(String text, int layout){
+        EditText editText = (EditText) LayoutInflater.from(activity).inflate(layout, null);
+        editText.setText(text);
+        return editText;
     }
 
     private List<Telefone> listaTelefones(){

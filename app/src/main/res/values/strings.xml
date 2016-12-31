@@ -49,6 +49,7 @@
     <string name="label_email">E-mail</string>
     <string name="novo_email"><u>+ Adicionar e-mail</u></string>
     <string name="cliente_salvo_sucesso">Cliente salvo com sucesso</string>
+    <string name="cliente_atualizado_sucesso">Cliente atualizado com sucesso</string>
     <string name="erro_nome">Insira o nome do cliente</string>
     <string name="banner_ad_cadastro_cliente">ca-app-pub-8736689435854328/7778681597</string>
 

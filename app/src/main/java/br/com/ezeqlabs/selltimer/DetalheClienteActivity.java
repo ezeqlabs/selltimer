@@ -46,6 +46,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
     private Contato contato;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this);
     private TextView nomeCliente, mensagem;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +57,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         atribuiVariaveis();
-
-        AdView mAdView = (AdView) findViewById(R.id.adViewCliente);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        preparaPublicidade();
     }
 
     @Override
@@ -90,11 +88,27 @@ public class DetalheClienteActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_editar:
+                abreEdicao();
+                return true;
             case R.id.action_deletar:
                 exibeAlertDelete();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void abreEdicao(){
+        Intent edicao = new Intent(this, CadastroClientesActivity.class);
+        edicao.putExtra(Constantes.CLIENTE_INTENT, cliente);
+        startActivity(edicao);
+        finish();
+    }
+
+    private void preparaPublicidade(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     public void adicionaContato(View v){
@@ -130,6 +144,7 @@ public class DetalheClienteActivity extends AppCompatActivity {
         llContato = (LinearLayout) findViewById(R.id.container_contatos_cliente);
         nomeCliente = (TextView) findViewById(R.id.nome_cliente_detalhe);
         mensagem = (TextView) findViewById(R.id.mensagem_cliente_detalhe);
+        mAdView = (AdView) findViewById(R.id.adViewCliente);
 
         cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
         enderecos = cliente.getEnderecos();
