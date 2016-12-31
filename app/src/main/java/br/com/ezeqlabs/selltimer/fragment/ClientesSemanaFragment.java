@@ -53,7 +53,10 @@ public class ClientesSemanaFragment extends Fragment {
         titulo = (TextView) v.findViewById(R.id.titulo_cliente_dashboard);
         mensagem = (TextView) v.findViewById(R.id.mensagem_cliente_dashboard);
         listView = (ListView) v.findViewById(R.id.listview_dashboard);
-        listaPares = databaseHelper.getClientesSemana();
+
+        if(databaseHelper != null) {
+            listaPares = databaseHelper.getClientesSemana();
+        }
     }
 
     private void preparaTitulo(){
@@ -63,9 +66,13 @@ public class ClientesSemanaFragment extends Fragment {
     }
 
     private void preparaExibicao(){
-        if( listaPares.size() > 0 ){
-            preparaListView();
-        }else{
+        if(listaPares != null) {
+            if (listaPares.size() > 0) {
+                preparaListView();
+            } else {
+                preparaMensagem();
+            }
+        } else {
             preparaMensagem();
         }
     }

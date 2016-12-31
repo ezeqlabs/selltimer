@@ -54,7 +54,10 @@ public class ClientesHojeFragment extends Fragment {
         titulo = (TextView) v.findViewById(R.id.titulo_cliente_dashboard);
         mensagem = (TextView) v.findViewById(R.id.mensagem_cliente_dashboard);
         listView = (ListView) v.findViewById(R.id.listview_dashboard);
-        listaPares = databaseHelper.getClientesHoje();
+
+        if( databaseHelper != null ) {
+            listaPares = databaseHelper.getClientesHoje();
+        }
     }
 
     private void preparaTitulo(){
@@ -64,9 +67,13 @@ public class ClientesHojeFragment extends Fragment {
     }
 
     private void preparaExibicao(){
-        if( listaPares.size() > 0 ){
-            preparaListView();
-        }else{
+        if(listaPares != null) {
+            if (listaPares.size() > 0) {
+                preparaListView();
+            } else {
+                preparaMensagem();
+            }
+        }else {
             preparaMensagem();
         }
     }
