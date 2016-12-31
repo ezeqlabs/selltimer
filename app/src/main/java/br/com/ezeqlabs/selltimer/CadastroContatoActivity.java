@@ -104,7 +104,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
     }
 
     private void salvaOuEditaContato(){
-        if( contato.getId() == null ){
+        if( contato == null ){
             salvarContato();
         }else{
             atualizaContato();
