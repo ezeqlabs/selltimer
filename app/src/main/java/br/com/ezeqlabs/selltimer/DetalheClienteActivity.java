@@ -146,14 +146,22 @@ public class DetalheClienteActivity extends AppCompatActivity {
         telefoneText.setText( telefone.getTelefone() );
 
         ImageView fone = (ImageView) v.findViewWithTag(Constantes.TAG_FONE);
-        int id = Integer.parseInt( String.valueOf(telefone.getTelefone()).replaceAll("-", "") );
+        int id = Integer.parseInt( String.valueOf(telefone.getId()) );
         fone.setId( id );
 
         llTelefone.addView(v);
     }
 
     public void ligaCliente(View v){
-        int numero = v.getId();
+        int id = v.getId();
+        String numero = "";
+
+        for(Telefone tel : telefones){
+            if( tel.getId() == id ){
+                numero = tel.getTelefone();
+            }
+        }
+
         ligacao = new Intent(Intent.ACTION_CALL);
         ligacao.setData(Uri.parse("tel:" + String.valueOf(numero)));
 
