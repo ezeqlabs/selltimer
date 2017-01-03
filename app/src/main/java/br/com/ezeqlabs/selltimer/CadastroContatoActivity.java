@@ -118,6 +118,8 @@ public class CadastroContatoActivity extends AppCompatActivity {
             contatoId = databaseHelper.insereContato(contato, clienteId);
             databaseHelper.close();
             redirecionaContato(R.string.contato_salvo_sucesso);
+        }else{
+            contato = null;
         }
     }
 

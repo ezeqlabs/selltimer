@@ -135,6 +135,8 @@ public class CadastroClientesActivity extends AppCompatActivity {
 
             salvaBlocosCliente();
             redirecionaClienteSalvo(R.string.cliente_salvo_sucesso);
+        }else{
+            cliente = null;
         }
     }
 
