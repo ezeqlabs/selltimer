@@ -144,8 +144,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
     private boolean contatoValido(){
         boolean valido = true;
 
-        if( contato.getData().equalsIgnoreCase("") ){
-            helper.getData().setError(getString(R.string.erro_data));
+        if(!dataValida()){
             valido = false;
         }
 
@@ -159,6 +158,54 @@ public class CadastroContatoActivity extends AppCompatActivity {
         }
 
         return valido;
+    }
+
+    private boolean dataValida(){
+        String data = contato.getData();
+
+        if( data.equalsIgnoreCase("") ){
+            helper.getData().setError(getString(R.string.erro_data));
+            return false;
+        }
+
+        if( data.length() != 10 ){
+            helper.getData().setError(getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+
+        if( !data.matches("\\d{1,2}/\\d{1,2}/\\d{4}") ){
+            helper.getData().setError(getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        if( !((Character) data.charAt(2)).toString().equals("/") &&
+                !((Character) data.charAt(5)).toString().equals("/") ){
+            helper.getData().setError(getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        String[] blocosData = data.split("/");
+        int dia = Integer.parseInt(blocosData[0]);
+        int mes = Integer.parseInt(blocosData[1]);
+        int ano = Integer.parseInt(blocosData[2]);
+
+        if( dia > Calendar.getInstance().get(Calendar.DAY_OF_MONTH) ){
+            helper.getData().setError(getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        if( mes > (Calendar.getInstance().get(Calendar.MONTH)+1) ){
+            helper.getData().setError(getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        if( ano > Calendar.getInstance().get(Calendar.YEAR) ){
+            helper.getData().setError(getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        return true;
     }
 
     private void redirecionaContato(int mensagem){
@@ -197,7 +244,8 @@ public class CadastroContatoActivity extends AppCompatActivity {
     private String preparaTextoData(int dia, int mes, int ano){
         String texto = "";
 
-        texto += dia + "/";
+        texto += dia > 9 ? dia : "0"+dia;
+        texto += "/";
         texto += mes > 9 ? mes : "0"+mes;
         texto += "/";
         texto += ano;
