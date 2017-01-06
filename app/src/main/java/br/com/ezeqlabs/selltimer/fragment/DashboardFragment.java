@@ -1,5 +1,6 @@
 package br.com.ezeqlabs.selltimer.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,20 +14,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.ezeqlabs.selltimer.DetalheClienteActivity;
 import br.com.ezeqlabs.selltimer.R;
 import br.com.ezeqlabs.selltimer.adapter.DashboardAdapter;
-import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 import br.com.ezeqlabs.selltimer.helpers.PairHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Contato;
-import br.com.ezeqlabs.selltimer.utils.Constantes;
+import br.com.ezeqlabs.selltimer.utils.Redirecionamentos;
 
-public class ClientesMesFragment extends Fragment {
+public class DashboardFragment  extends Fragment {
     private TextView titulo, mensagem;
     private ListView listView;
-    private Context context;
-    private DatabaseHelper databaseHelper;
+    private Activity activity;
+    private int corBgTitulo, corBgListView, txtTitulo, txtSemContatos;
     List<PairHelper> listaPares;
 
     @Override
@@ -41,27 +40,39 @@ public class ClientesMesFragment extends Fragment {
         return v;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
-    public void setDatabaseHelper(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
+    public void setListaPares(List<PairHelper> listaPares) {
+        this.listaPares = listaPares;
+    }
+
+    public void setTxtSemContatos(int txtSemContatos) {
+        this.txtSemContatos = txtSemContatos;
+    }
+
+    public void setTxtTitulo(int txtTitulo) {
+        this.txtTitulo = txtTitulo;
+    }
+
+    public void setCorBgListView(int corBgListView) {
+        this.corBgListView = corBgListView;
+    }
+
+    public void setCorBgTitulo(int corBgTitulo) {
+        this.corBgTitulo = corBgTitulo;
     }
 
     private void preparaVariaveis(View v){
         titulo = (TextView) v.findViewById(R.id.titulo_cliente_dashboard);
         mensagem = (TextView) v.findViewById(R.id.mensagem_cliente_dashboard);
         listView = (ListView) v.findViewById(R.id.listview_dashboard);
-
-        if(databaseHelper != null) {
-            listaPares = databaseHelper.getClientesMes();
-        }
     }
 
     private void preparaTitulo(){
-        titulo.setText(getString(R.string.contatos_mes));
-        titulo.setBackgroundColor(getResources().getColor(R.color.azulSteelBlue));
+        titulo.setText(getString(txtTitulo));
+        titulo.setBackgroundColor(getResources().getColor(corBgTitulo));
         titulo.setTextColor(getResources().getColor(R.color.branco));
     }
 
@@ -72,7 +83,7 @@ public class ClientesMesFragment extends Fragment {
             } else {
                 preparaMensagem();
             }
-        } else {
+        }else {
             preparaMensagem();
         }
     }
@@ -81,16 +92,16 @@ public class ClientesMesFragment extends Fragment {
         mensagem.setVisibility(View.VISIBLE);
         listView.setVisibility(View.GONE);
 
-        mensagem.setText(R.string.texto_sem_contatos_mes);
+        mensagem.setText(txtSemContatos);
     }
 
     private void preparaListView(){
         mensagem.setVisibility(View.GONE);
         listView.setVisibility(View.VISIBLE);
 
-        listView.setBackgroundColor(getResources().getColor(R.color.azulLightBlue));
+        listView.setBackgroundColor(getResources().getColor(corBgListView));
 
-        listView.setAdapter( new DashboardAdapter(context, listaPares) );
+        listView.setAdapter( new DashboardAdapter(activity, listaPares) );
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,10 +109,7 @@ public class ClientesMesFragment extends Fragment {
                 Contato contato = listaPares.get(i).getContato();
                 Cliente cliente = listaPares.get(i).getCliente();
 
-                Intent detalhe = new Intent(context, DetalheClienteActivity.class);
-                detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
-                detalhe.putExtra(Constantes.CONTATO_INTENT, contato);
-                startActivity(detalhe);
+                Redirecionamentos.redireciona_para_cliente(activity, cliente, contato, false);
             }
         });
     }

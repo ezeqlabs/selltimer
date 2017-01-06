@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,15 +14,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
-import br.com.ezeqlabs.selltimer.fragment.ClientesHojeFragment;
-import br.com.ezeqlabs.selltimer.fragment.ClientesMesFragment;
-import br.com.ezeqlabs.selltimer.fragment.ClientesSemanaFragment;
+import br.com.ezeqlabs.selltimer.fragment.DashboardFragment;
 import br.com.ezeqlabs.selltimer.service.AlarmeReceiver;
 
 public class MainActivity extends AppCompatActivity
@@ -129,28 +125,43 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
     }
 
-    private ClientesHojeFragment preparaHojeFragment(){
-        ClientesHojeFragment clientesHojeFragment = new ClientesHojeFragment();
-        clientesHojeFragment.setContext(this);
-        clientesHojeFragment.setDatabaseHelper(databaseHelper);
+    private DashboardFragment preparaHojeFragment(){
+        DashboardFragment clientesHoje = new DashboardFragment();
 
-        return clientesHojeFragment;
+        clientesHoje.setActivity(this);
+        clientesHoje.setTxtTitulo(R.string.contatos_hoje);
+        clientesHoje.setCorBgTitulo(R.color.vermelhoCrimson);
+        clientesHoje.setCorBgListView(R.color.vermelhoPink);
+        clientesHoje.setTxtSemContatos(R.string.texto_sem_contatos_hoje);
+        clientesHoje.setListaPares(databaseHelper.getClientesHoje());
+
+        return clientesHoje;
     }
 
-    private ClientesSemanaFragment preparaSemanaFragment(){
-        ClientesSemanaFragment clientesSemanaFragment = new ClientesSemanaFragment();
-        clientesSemanaFragment.setContext(this);
-        clientesSemanaFragment.setDatabaseHelper(databaseHelper);
+    private DashboardFragment preparaSemanaFragment(){
+        DashboardFragment clientesSemana = new DashboardFragment();
 
-        return clientesSemanaFragment;
+        clientesSemana.setActivity(this);
+        clientesSemana.setTxtTitulo(R.string.contatos_semana);
+        clientesSemana.setCorBgTitulo(R.color.amareloGoldenrod);
+        clientesSemana.setCorBgListView(R.color.amareloLightYellow);
+        clientesSemana.setTxtSemContatos(R.string.texto_sem_contatos_semana);
+        clientesSemana.setListaPares(databaseHelper.getClientesSemana());
+
+        return clientesSemana;
     }
 
-    private ClientesMesFragment preparaMesFragment(){
-        ClientesMesFragment clientesMesFragment = new ClientesMesFragment();
-        clientesMesFragment.setContext(this);
-        clientesMesFragment.setDatabaseHelper(databaseHelper);
+    private DashboardFragment preparaMesFragment(){
+        DashboardFragment clientesMes = new DashboardFragment();
 
-        return clientesMesFragment;
+        clientesMes.setActivity(this);
+        clientesMes.setTxtTitulo(R.string.contatos_mes);
+        clientesMes.setCorBgTitulo(R.color.azulSteelBlue);
+        clientesMes.setCorBgListView(R.color.azulLightBlue);
+        clientesMes.setTxtSemContatos(R.string.texto_sem_contatos_mes);
+        clientesMes.setListaPares(databaseHelper.getClientesMes());
+
+        return clientesMes;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
