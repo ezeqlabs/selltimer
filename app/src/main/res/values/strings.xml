@@ -100,7 +100,7 @@
     <string name="contato_deletado_sucesso">Contato deletado com sucesso</string>
 
     <!-- SOBRE ACTIVITY -->
-    <string name="title_activity_sobre">Sobre o aplicativo</string>
+    <string name="title_activity_sobre">Sobre o SellTimer</string>
     <string name="sobre_app">Sobre o aplicativo</string>
     <string name="versao_sobre_app">Você está na versão</string>
     <string name="desenvolvido_sobre_app">Desenvolvido por</string>
@@ -113,6 +113,7 @@
     <string name="assunto_email_feedback">[SellTimer - %1$s] %2$s</string>
     <string name="titulo_chooser_feedback">Enviar %1$s usando:</string>
     <string name="erro_chooser_feedback">Nenhum aplicativo de envio de e-mail encontrado</string>
+    <string name="texto_sobre_app">Cadastre seus clientes e todos os contatos realizados com eles. Todo dia que tiver algum cliente para ligar, vamos te lembrar para você não perder mais nenhuma venda.</string>
 
     <!-- NOTIFICACOES -->
     <string name="titulo_notificacao">Não perca mais nenhuma venda</string>
