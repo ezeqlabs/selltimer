@@ -31,13 +31,29 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/interesse_contato"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:prompt="@string/label_interesse"
-            />
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Spinner
+                android:id="@+id/interesse_contato"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:prompt="@string/label_interesse"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_info"
+                android:onClick="abreAjudaInteresse"
+                />
+
+        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_height="wrap_content"

@@ -5,6 +5,8 @@
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
     <string name="ok">OK</string>
+    <string name="entendi">Entendi</string>
+    <string name="ajuda">Ajuda</string>
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="title_alert_permissao_negada">Permissão negada</string>
 
@@ -68,6 +70,7 @@
     <string name="erro_interesse">Escolha o nível de interesse</string>
     <string name="banner_ad_cadastro_contato">ca-app-pub-8736689435854328/3208881196</string>
     <string name="erro_atualizar_contato">Erro ao atualizar contato. Tente novamente</string>
+    <string name="mensagem_ajuda_interesse">Te avisaremos para retornar para o cliente, baseado na data deste contato. Avisaremos dentro de 3, 10 ou 25 dias, dependendo do nível de interesse que for escolhido.</string>
 
     <!-- DETALHE CLIENTE ACTIVITY -->
     <string name="title_activity_detalhe_cliente">Detalhe do cliente</string>

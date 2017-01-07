@@ -1,8 +1,10 @@
 package br.com.ezeqlabs.selltimer;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -252,5 +254,14 @@ public class CadastroContatoActivity extends AppCompatActivity {
         texto += ano;
 
         return texto;
+    }
+
+    public void abreAjudaInteresse(View v){
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_info)
+                .setTitle(getString(R.string.ajuda))
+                .setMessage(getString(R.string.mensagem_ajuda_interesse))
+                .setPositiveButton(getString(R.string.entendi), null)
+                .show();
     }
 }
