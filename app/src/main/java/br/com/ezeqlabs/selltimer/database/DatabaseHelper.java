@@ -306,10 +306,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<PairHelper> getClientesHoje(){
         List<PairHelper> retorno = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
-                "ON id = cliente_id_con " +
+        String contatos = "SELECT id_con, max(data) as data, retorno, anotacoes, interesse, cliente_id_con " +
+                "FROM " + TABELA_CONTATOS + " " +
                 "WHERE retorno = date('"+ Datas.dataAtual() +"') " +
-                "GROUP BY id ORDER BY data DESC ";
+                "GROUP BY cliente_id_con";
+
+        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " +
+                "("+ contatos +") c " +
+                "ON id = cliente_id_con; ";
 
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
@@ -336,11 +340,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<PairHelper> getClientesSemana(){
         List<PairHelper> retorno = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
-                "ON id = cliente_id_con " +
-                "WHERE retorno <= date('"+ Datas.dataAtual() +"', '-1 day') " +
-                "AND retorno >= date('"+ Datas.dataAtual() +"', '-7 day') " +
-                "GROUP BY id ORDER BY data DESC ";
+        String contatos = "SELECT id_con, max(data) as data, retorno, anotacoes, interesse, cliente_id_con " +
+                "FROM " + TABELA_CONTATOS + " " +
+                "WHERE retorno >= date('"+ Datas.dataAtual() +"', '+1 day') " +
+                "AND retorno <= date('"+ Datas.dataAtual() +"', '+7 day') " +
+                "GROUP BY cliente_id_con";
+
+        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " +
+                "("+ contatos +") c " +
+                "ON id = cliente_id_con; ";
 
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
@@ -367,11 +375,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<PairHelper> getClientesMes(){
         List<PairHelper> retorno = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
-                "ON id = cliente_id_con " +
-                "WHERE retorno <= date('"+ Datas.dataAtual() +"', '-8 day') " +
-                "AND retorno >= date('"+ Datas.dataAtual() +"', '-30 day') " +
-                "GROUP BY id ORDER BY data DESC ";
+        String contatos = "SELECT id_con, max(data) as data, retorno, anotacoes, interesse, cliente_id_con " +
+                "FROM " + TABELA_CONTATOS + " " +
+                "WHERE retorno >= date('"+ Datas.dataAtual() +"', '+8 day') " +
+                "AND retorno <= date('"+ Datas.dataAtual() +"', '+30 day') " +
+                "GROUP BY cliente_id_con";
+
+        String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " +
+                "("+ contatos +") c " +
+                "ON id = cliente_id_con; ";
 
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
