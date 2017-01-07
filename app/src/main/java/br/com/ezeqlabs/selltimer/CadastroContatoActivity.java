@@ -25,6 +25,7 @@ import br.com.ezeqlabs.selltimer.helpers.ContatoHelper;
 import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Contato;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
+import br.com.ezeqlabs.selltimer.utils.Datas;
 
 public class CadastroContatoActivity extends AppCompatActivity {
     private EditText dataContato;
@@ -163,6 +164,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
     }
 
     private boolean dataValida(){
+        helper.getData().setError(null);
         String data = contato.getData();
 
         if( data.equalsIgnoreCase("") ){
@@ -187,27 +189,24 @@ public class CadastroContatoActivity extends AppCompatActivity {
             return false;
         }
 
-        String[] blocosData = data.split("/");
-        int dia = Integer.parseInt(blocosData[0]);
-        int mes = Integer.parseInt(blocosData[1]);
-        int ano = Integer.parseInt(blocosData[2]);
-
-        if( dia > Calendar.getInstance().get(Calendar.DAY_OF_MONTH) ){
-            helper.getData().setError(getString(R.string.erro_data_invalida));
-            return false;
-        }
-
-        if( mes > (Calendar.getInstance().get(Calendar.MONTH)+1) ){
-            helper.getData().setError(getString(R.string.erro_data_invalida));
-            return false;
-        }
-
-        if( ano > Calendar.getInstance().get(Calendar.YEAR) ){
+        if( getIntDataInput() > getIntDataAtual() ){
             helper.getData().setError(getString(R.string.erro_data_invalida));
             return false;
         }
 
         return true;
+    }
+
+    private int getIntDataInput(){
+        String[] blocosData = contato.getData().split("/");
+        String input = blocosData[2] + blocosData[1] + blocosData[0];
+
+        return Integer.parseInt(input);
+    }
+
+    private int getIntDataAtual(){
+        String atual = Datas.dataAtual().replaceAll("-", "");
+        return Integer.parseInt(atual);
     }
 
     private void redirecionaContato(int mensagem){

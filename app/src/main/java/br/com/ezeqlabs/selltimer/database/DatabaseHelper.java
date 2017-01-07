@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import br.com.ezeqlabs.selltimer.model.Contato;
 import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
+import br.com.ezeqlabs.selltimer.utils.Datas;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABELA_CLIENTES = "clientes";
@@ -27,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABELA_TELEFONES = "telefones";
     public static final String TABELA_CONTATOS = "contatos";
     public static final String NOME_BD = "selltimer.db";
-    public static final int VERSAO_BD = 1;
+    public static final int VERSAO_BD = 2;
 
     public DatabaseHelper(Context context){
         super(context, NOME_BD, null, VERSAO_BD);
@@ -43,7 +45,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int versaoAntiga, int versaoNova) {}
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int versaoAntiga, int versaoNova) {
+        switch (versaoAntiga){
+            case 1:
+                String sql = "ALTER TABLE " + TABELA_CONTATOS + " ADD COLUMN retorno DATE;";
+                sqLiteDatabase.execSQL(sql);
+        }
+    }
 
     private String criaTabelaClientes(){
         String sql = "CREATE TABLE " + TABELA_CLIENTES
@@ -229,6 +237,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE " + TABELA_CONTATOS
                 + "(id_con INTEGER PRIMARY KEY, "
                 + "data DATE, "
+                + "retorno DATE, "
                 + "anotacoes TEXT, "
                 + "interesse TEXT, "
                 + "cliente_id_con INTEGER, "
@@ -242,6 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put("data", contato.getDataParaBanco());
+        values.put("retorno", contato.getRetornoParaBanco());
         values.put("anotacoes", contato.getAnotacoes());
         values.put("interesse", contato.getInteresse());
         values.put("cliente_id_con", clienteId);
@@ -253,6 +263,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put("data", contato.getDataParaBanco());
+        values.put("retorno", contato.getRetornoParaBanco());
         values.put("anotacoes", contato.getAnotacoes());
         values.put("interesse", contato.getInteresse());
         values.put("cliente_id_con", clienteId);
@@ -272,6 +283,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             contato.setId(c.getLong(c.getColumnIndex("id_con")));
             contato.setDataDoBanco(c.getString(c.getColumnIndex("data")));
+            contato.setRetornoDoBanco(c.getString(c.getColumnIndex("retorno")));
             contato.setAnotacoes(c.getString(c.getColumnIndex("anotacoes")));
             contato.setInteresse(c.getString(c.getColumnIndex("interesse")));
             contato.setClienteId(c.getLong(c.getColumnIndex("cliente_id_con")));
@@ -296,7 +308,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<PairHelper> retorno = new ArrayList<>();
         String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
                 "ON id = cliente_id_con " +
-                "WHERE data >= date('now', '-3 day') GROUP BY id ORDER BY data DESC ";
+                "WHERE retorno = date('"+ Datas.dataAtual() +"') " +
+                "GROUP BY id ORDER BY data DESC ";
 
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
@@ -325,7 +338,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<PairHelper> retorno = new ArrayList<>();
         String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
                 "ON id = cliente_id_con " +
-                "WHERE data <= date('now', '-4 day') AND data >= date('now', '-7 day') GROUP BY id ORDER BY data DESC ";
+                "WHERE retorno <= date('"+ Datas.dataAtual() +"', '-1 day') " +
+                "AND retorno >= date('"+ Datas.dataAtual() +"', '-7 day') " +
+                "GROUP BY id ORDER BY data DESC ";
 
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
@@ -354,7 +369,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<PairHelper> retorno = new ArrayList<>();
         String sql = "SELECT * FROM " + TABELA_CLIENTES + " INNER JOIN " + TABELA_CONTATOS + " " +
                 "ON id = cliente_id_con " +
-                "WHERE data <= date('now', '-8 day') AND data >= date('now', '-30 day') GROUP BY id ORDER BY data DESC ";
+                "WHERE retorno <= date('"+ Datas.dataAtual() +"', '-8 day') " +
+                "AND retorno >= date('"+ Datas.dataAtual() +"', '-30 day') " +
+                "GROUP BY id ORDER BY data DESC ";
 
         Cursor c = getReadableDatabase().rawQuery(sql, null);
 
