@@ -11,13 +11,16 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import br.com.ezeqlabs.selltimer.MainActivity;
 import br.com.ezeqlabs.selltimer.R;
+import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 
 public class NotificacaoService extends IntentService {
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent;
+    private Context context;
     private static int NOTIFICATION_ID = 1;
     Notification notification;
 
@@ -27,11 +30,24 @@ public class NotificacaoService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Context context = this.getApplicationContext();
+        context = this.getApplicationContext();
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+
+        if( databaseHelper.temClienteHoje() ){
+            preparaVariaveis();
+            preparaNotificacao();
+            enviaNotificacao();
+        }
+
+    }
+
+    private void preparaVariaveis(){
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent mIntent = new Intent(this, MainActivity.class);
         pendingIntent = PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
 
+    private void preparaNotificacao(){
         Resources res = this.getResources();
         notification = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
@@ -47,6 +63,9 @@ public class NotificacaoService extends IntentService {
         notification.ledARGB = 0xFFFFA500;
         notification.ledOnMS = 800;
         notification.ledOffMS = 1000;
+    }
+
+    private void enviaNotificacao(){
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }

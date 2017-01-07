@@ -304,6 +304,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().delete(TABELA_CONTATOS, "cliente_id_con=?", args);
     }
 
+    public boolean temClienteHoje(){
+        String sql = "SELECT * FROM " + TABELA_CONTATOS + " " +
+                "WHERE retorno = date('" + Datas.dataAtual() + "');";
+        Cursor c = getReadableDatabase().rawQuery(sql, null);
+
+        while(c.moveToNext()){
+            return true;
+        }
+        return false;
+    }
+
     public List<PairHelper> getClientesHoje(){
         List<PairHelper> retorno = new ArrayList<>();
         String contatos = "SELECT id_con, max(data) as data, retorno, anotacoes, interesse, cliente_id_con " +
