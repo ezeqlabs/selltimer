@@ -39,6 +39,8 @@
     <string name="texto_sem_contatos_hoje">Você não tem nenhum cliente para ligar hoje</string>
     <string name="texto_sem_contatos_semana">Você não tem nenhum cliente para ligar essa semana</string>
     <string name="texto_sem_contatos_mes">Você não tem nenhum cliente para ligar esse mês</string>
+    <string name="title_boas_vindas">Bem vindo ao SellTimer</string>
+    <string name="mensagem_boas_vindas">Cadastre seus clientes e os contatos realizados com eles. Te ajudaremos a não perder mais nenhuma venda.</string>
 
     <!-- CLIENTES ACTIVITY -->
     <string name="title_activity_clientes">Clientes</string>
