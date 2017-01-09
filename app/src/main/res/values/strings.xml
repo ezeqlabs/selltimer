@@ -9,6 +9,7 @@
     <string name="ajuda">Ajuda</string>
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="title_alert_permissao_negada">Permissão negada</string>
+    <string name="completar_acao_usando">Completar ação usando:</string>
 
     <!-- MENUS -->
     <string name="title_clientes_sidemenu">Clientes</string>

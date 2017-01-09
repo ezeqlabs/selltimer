@@ -9,7 +9,7 @@
     >
 
     <TextView
-        android:id="@+id/telefone_detalhe_cliente"
+        android:id="@+id/email_detalhe_cliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
@@ -24,9 +24,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_phone"
-        android:tag="fone"
-        android:onClick="ligaCliente"
+        android:src="@drawable/ic_email"
+        android:tag="email"
+        android:onClick="enviaEmailCliente"
         />
 
 </LinearLayout>

@@ -216,15 +216,41 @@ public class DetalheClienteActivity extends AppCompatActivity {
     }
 
     private void geraEmail(Email email){
-        llEmail.addView(geraTextView(email.getEmail()));
+        View v = LayoutInflater.from(this).inflate(R.layout.linearlayout_email, null);
+
+        TextView emailText = (TextView) v.findViewById(R.id.email_detalhe_cliente);
+        emailText.setText( email.getEmail() );
+
+        ImageView emailIV = (ImageView) v.findViewWithTag(Constantes.TAG_EMAIL);
+        int id = Integer.parseInt(String.valueOf( email.getId() ));
+        emailIV.setId(id);
+
+        llEmail.addView(v);
     }
 
-    private TextView geraTextView(String texto){
-        TextView textView = new TextView(this);
-        textView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        textView.setText(texto);
-        return textView;
+    public void enviaEmailCliente(View v){
+        int _id = v.getId();
+        String email = "";
+
+        if (emails != null) {
+            if(emails.size() > 0){
+                for( Email tmp : emails ){
+                    if( _id == Integer.parseInt(String.valueOf(tmp.getId()))){
+                        email = tmp.getEmail();
+                    }
+                }
+            }
+        }
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            startActivity(Intent.createChooser(i, getString(R.string.completar_acao_usando)));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, getString(R.string.erro_chooser_feedback), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void atribuiVariaveis(){
