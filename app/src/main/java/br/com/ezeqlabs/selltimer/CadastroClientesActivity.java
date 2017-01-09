@@ -178,10 +178,23 @@ public class CadastroClientesActivity extends AppCompatActivity {
 
     private boolean clienteValido(){
         boolean valido = true;
-        if(cliente.getNome().equalsIgnoreCase("")){
-            helper.getNome().setError(getString(R.string.erro_nome));
+
+        if(!helper.nomeValido()){
             valido = false;
         }
+
+        if( !helper.enderecoValido() ){
+            valido = false;
+        }
+
+        if( !helper.telefoneValido() ){
+            valido = false;
+        }
+
+        if( !helper.emailValido() ){
+            valido = false;
+        }
+
         return valido;
     }
 

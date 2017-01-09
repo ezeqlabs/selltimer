@@ -166,4 +166,41 @@ public class ClienteHelper {
 
         return listEmail;
     }
+
+    public boolean nomeValido(){
+        if (cliente.getNome().equals("")) {
+            nome.setError(activity.getString(R.string.erro_nome));
+            return false;
+        }
+
+        if( cliente.getNome().length() < 3 ){
+            nome.setError(activity.getString(R.string.erro_nome_invalido));
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean emailValido(){
+        return true;
+    }
+
+    public boolean telefoneValido(){
+        return true;
+    }
+
+    public boolean enderecoValido(){
+        for( EditText tmp : enderecos ){
+            tmp.setError(null);
+
+            String valor = tmp.getText().toString();
+            if( valor.length() > 0 ){
+                if( valor.length() < 5){
+                    tmp.setError(activity.getString(R.string.erro_endereco_invalido));
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
