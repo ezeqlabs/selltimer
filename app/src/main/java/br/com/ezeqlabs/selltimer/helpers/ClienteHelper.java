@@ -182,6 +182,17 @@ public class ClienteHelper {
     }
 
     public boolean emailValido(){
+        for( EditText tmp : emails ){
+            tmp.setError(null);
+
+            String valor = tmp.getText().toString();
+            if( valor.length() > 0 ){
+                if( !(valor.matches(".+@.+\\.[a-z]+")) ){
+                    tmp.setError(activity.getString(R.string.erro_email_invalido));
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
