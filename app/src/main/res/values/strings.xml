@@ -61,6 +61,7 @@
     <string name="erro_nome">Insira o nome do cliente</string>
     <string name="erro_nome_invalido">Insira um nome válido</string>
     <string name="erro_endereco_invalido">Insira um endereço válido</string>
+    <string name="erro_telefone_invalido">Insira um telefone válido</string>
     <string name="banner_ad_cadastro_cliente">ca-app-pub-8736689435854328/7778681597</string>
 
     <!-- CADASTRO CONTATO ACTIVITY -->

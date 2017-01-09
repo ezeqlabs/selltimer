@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.onurciner.toastox.ToastOX;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import br.com.ezeqlabs.selltimer.model.Cliente;
 import br.com.ezeqlabs.selltimer.model.Email;
 import br.com.ezeqlabs.selltimer.model.Endereco;
 import br.com.ezeqlabs.selltimer.model.Telefone;
+import br.com.ezeqlabs.selltimer.utils.BrPhoneNumberFormatter;
 import br.com.ezeqlabs.selltimer.utils.Constantes;
 
 public class CadastroClientesActivity extends AppCompatActivity {
@@ -52,6 +54,9 @@ public class CadastroClientesActivity extends AppCompatActivity {
         llTelefones = (LinearLayout) findViewById(R.id.container_telefones);
         llEmails = (LinearLayout) findViewById(R.id.container_emails);
         cliente = (Cliente) getIntent().getSerializableExtra(Constantes.CLIENTE_INTENT);
+        EditText editText = (EditText) findViewById(R.id.telefone_cliente);
+        BrPhoneNumberFormatter addLineNumberFormatter = new BrPhoneNumberFormatter(new WeakReference<>(editText));
+        editText.addTextChangedListener(addLineNumberFormatter);
 
         helper = new ClienteHelper(CadastroClientesActivity.this, listaEnderecos, listaTelefones, listaEmails);
         databaseHelper = new DatabaseHelper(this);
@@ -75,6 +80,8 @@ public class CadastroClientesActivity extends AppCompatActivity {
 
     public void novoTelefone(View v){
         EditText editText = geraEditText(R.string.label_telefone, R.layout.edittext_telefone);
+        BrPhoneNumberFormatter addLineNumberFormatter = new BrPhoneNumberFormatter(new WeakReference<>(editText));
+        editText.addTextChangedListener(addLineNumberFormatter);
         llTelefones.addView(editText);
         listaTelefones.add(editText);
     }

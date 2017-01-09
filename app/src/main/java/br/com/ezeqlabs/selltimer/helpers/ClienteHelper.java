@@ -186,6 +186,17 @@ public class ClienteHelper {
     }
 
     public boolean telefoneValido(){
+        for( EditText tmp : telefones ){
+            tmp.setError(null);
+
+            String valor = tmp.getText().toString();
+            if( valor.length() > 0 ){
+                if( !(valor.length() >= 14 && valor.length() < 16) ){
+                    tmp.setError(activity.getString(R.string.erro_telefone_invalido));
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
