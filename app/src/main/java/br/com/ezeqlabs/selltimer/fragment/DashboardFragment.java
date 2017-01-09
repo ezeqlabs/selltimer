@@ -36,7 +36,6 @@ public class DashboardFragment  extends Fragment {
         preparaVariaveis(v);
         preparaTitulo();
         preparaExibicao();
-
         return v;
     }
 

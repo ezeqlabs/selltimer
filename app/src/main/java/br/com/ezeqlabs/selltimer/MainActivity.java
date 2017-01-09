@@ -16,11 +16,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ezeqlabs.selltimer.adapter.ViewPagerAdapter;
 import br.com.ezeqlabs.selltimer.database.DatabaseHelper;
 import br.com.ezeqlabs.selltimer.fragment.DashboardFragment;
 import br.com.ezeqlabs.selltimer.service.AlarmeReceiver;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this);
     private SharedPreferences sharedPreferences;
+    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume(){
         super.onResume();
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -121,9 +125,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(preparaHojeFragment(), getString(R.string.tab_hoje));
         adapter.addFragment(preparaSemanaFragment(), getString(R.string.tab_semana));
@@ -192,34 +194,5 @@ public class MainActivity extends AppCompatActivity
                     }
                 })
                 .show();
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
     }
 }
