@@ -54,12 +54,6 @@ public class CadastroContatoActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
-        finish();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cadastro, menu);
         return true;
@@ -140,7 +134,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
                 databaseHelper.close();
                 redirecionaContato(R.string.contato_atualizado_sucesso);
             }else{
-                ToastOX.error(this, getString(R.string.erro_atualizar_contato), Toast.LENGTH_LONG);
+                ToastOX.error(this, getString(R.string.erro_atualizar_contato), Toast.LENGTH_SHORT);
                 voltaParaDetalhe();
             }
         }
@@ -213,7 +207,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
 
     private void redirecionaContato(int mensagem){
         contato.setId(contatoId);
-        ToastOX.ok(this, getString(mensagem), Toast.LENGTH_LONG);
+        ToastOX.ok(this, getString(mensagem), Toast.LENGTH_SHORT);
         voltaParaDetalhe();
     }
 

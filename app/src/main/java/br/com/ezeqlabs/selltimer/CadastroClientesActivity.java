@@ -99,12 +99,6 @@ public class CadastroClientesActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
-        super.onStop();
-        finish();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cadastro, menu);
         return true;
@@ -216,11 +210,12 @@ public class CadastroClientesActivity extends AppCompatActivity {
     private void redirecionaClienteSalvo(int mensagem){
         cliente.setId(clienteId);
 
-        ToastOX.ok(this, getString(mensagem), Toast.LENGTH_LONG);
+        ToastOX.ok(this, getString(mensagem), Toast.LENGTH_SHORT);
 
         Intent detalhe = new Intent(this, DetalheClienteActivity.class);
         detalhe.putExtra(Constantes.CLIENTE_INTENT, cliente);
         startActivity(detalhe);
+        finish();
     }
 
     private void salvarEndereco(List<Endereco> enderecos, Long clienteId){
