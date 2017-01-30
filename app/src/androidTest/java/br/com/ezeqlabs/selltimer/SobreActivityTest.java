@@ -17,6 +17,7 @@ import br.com.ezeqlabs.selltimer.utils.RotacionaTela;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -78,7 +79,7 @@ public class SobreActivityTest {
         PreparaTela.rotaciona(context, activityTestRule);
         texto = context.getString(R.string.feedback_sobre_app);
 
-        onView(withId(R.id.btnFeedback)).check(matches(isDisplayed()));
+        onView(withId(R.id.btnFeedback)).perform(scrollTo()).check(matches(isDisplayed()));
         onView(withId(R.id.btnFeedback)).check(matches(isClickable()));
         onView(withId(R.id.btnFeedback)).check(matches(withText(texto)));
     }
