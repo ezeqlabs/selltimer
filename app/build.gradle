@@ -17,10 +17,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            testCoverageEnabled true
+        }
     }
     productFlavors {
         free {}
         paid {
+            applicationId "br.com.ezeqlabs.selltimer.paid"
             versionCode 1
             versionName "0.1.0"
         }
@@ -44,3 +48,4 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply from: '../jacoco.gradle'
