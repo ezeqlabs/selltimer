@@ -23,10 +23,6 @@ public class Telefone implements Serializable {
         this.telefone = telefone;
     }
 
-    public Long getClienteId() {
-        return clienteId;
-    }
-
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
     }

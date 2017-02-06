@@ -36,10 +36,6 @@ public class Contato implements Serializable {
         this.data = partes[2] + "/" + partes[1] + "/" + partes[0];
     }
 
-    public String getRetorno() {
-        return retorno;
-    }
-
     public String getRetornoParaBanco(){
         String[] partes = retorno.split("/");
         return partes[2] + "-" + partes[1] + "-" + partes[0];
@@ -70,10 +66,6 @@ public class Contato implements Serializable {
 
     public void setInteresse(String interesse) {
         this.interesse = interesse;
-    }
-
-    public Long getClienteId() {
-        return clienteId;
     }
 
     public void setClienteId(Long clienteId) {

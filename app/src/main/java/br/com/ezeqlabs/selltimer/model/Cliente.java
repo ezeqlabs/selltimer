@@ -51,14 +51,6 @@ public class Cliente implements Serializable {
         this.telefones = telefones;
     }
 
-    public List<Contato> getContatos() {
-        return contatos;
-    }
-
-    public void setContatos(List<Contato> contatos) {
-        this.contatos = contatos;
-    }
-
     @Override
     public String toString() {
         return nome;

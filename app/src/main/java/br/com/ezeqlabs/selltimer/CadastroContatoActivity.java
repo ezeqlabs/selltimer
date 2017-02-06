@@ -143,7 +143,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
     private boolean contatoValido(){
         boolean valido = true;
 
-        if(!dataValida()){
+        if(!helper.dataValida(contato.getData())){
             valido = false;
         }
 
@@ -157,52 +157,6 @@ public class CadastroContatoActivity extends AppCompatActivity {
         }
 
         return valido;
-    }
-
-    private boolean dataValida(){
-        helper.getData().setError(null);
-        String data = contato.getData();
-
-        if( data.equalsIgnoreCase("") ){
-            helper.getData().setError(getString(R.string.erro_data));
-            return false;
-        }
-
-        if( data.length() != 10 ){
-            helper.getData().setError(getString(R.string.erro_data_invalida));
-            return false;
-        }
-
-
-        if( !data.matches("\\d{1,2}/\\d{1,2}/\\d{4}") ){
-            helper.getData().setError(getString(R.string.erro_data_invalida));
-            return false;
-        }
-
-        if( !((Character) data.charAt(2)).toString().equals("/") &&
-                !((Character) data.charAt(5)).toString().equals("/") ){
-            helper.getData().setError(getString(R.string.erro_data_invalida));
-            return false;
-        }
-
-        if( getIntDataInput() > getIntDataAtual() ){
-            helper.getData().setError(getString(R.string.erro_data_invalida));
-            return false;
-        }
-
-        return true;
-    }
-
-    private int getIntDataInput(){
-        String[] blocosData = contato.getData().split("/");
-        String input = blocosData[2] + blocosData[1] + blocosData[0];
-
-        return Integer.parseInt(input);
-    }
-
-    private int getIntDataAtual(){
-        String atual = Datas.dataAtual().replaceAll("-", "");
-        return Integer.parseInt(atual);
     }
 
     private void redirecionaContato(int mensagem){

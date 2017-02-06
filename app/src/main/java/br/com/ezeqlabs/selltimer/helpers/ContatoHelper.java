@@ -1,5 +1,6 @@
 package br.com.ezeqlabs.selltimer.helpers;
 
+import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,14 +14,17 @@ import java.util.Date;
 import br.com.ezeqlabs.selltimer.CadastroContatoActivity;
 import br.com.ezeqlabs.selltimer.R;
 import br.com.ezeqlabs.selltimer.model.Contato;
+import br.com.ezeqlabs.selltimer.utils.Datas;
 
 public class ContatoHelper {
     private EditText data, anotacoes;
     private Spinner interesse;
     private Contato contato;
     private ArrayAdapter<CharSequence> adapter;
+    private Activity activity;
 
     public ContatoHelper(CadastroContatoActivity activity){
+        this.activity = activity;
         data = (EditText) activity.findViewById(R.id.data_contato);
         interesse = (Spinner) activity.findViewById(R.id.interesse_contato);
         anotacoes = (EditText) activity.findViewById(R.id.descricao_contato);
@@ -30,10 +34,6 @@ public class ContatoHelper {
 
     public EditText getData() {
         return data;
-    }
-
-    public EditText getAnotacoes() {
-        return anotacoes;
     }
 
     public Spinner getInteresse() {
@@ -53,6 +53,51 @@ public class ContatoHelper {
         data.setText(contato.getData());
         anotacoes.setText(contato.getAnotacoes());
         setSpinner(contato, adapter);
+    }
+
+    public boolean dataValida(String data){
+        this.data.setError(null);
+
+        if( data.equalsIgnoreCase("") ){
+            this.data.setError(activity.getString(R.string.erro_data));
+            return false;
+        }
+
+        if( data.length() != 10 ){
+            this.data.setError(activity.getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+
+        if( !data.matches("\\d{1,2}/\\d{1,2}/\\d{4}") ){
+            this.data.setError(activity.getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        if( !((Character) data.charAt(2)).toString().equals("/") &&
+                !((Character) data.charAt(5)).toString().equals("/") ){
+            this.data.setError(activity.getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        if( getIntDataInput(data) > getIntDataAtual() ){
+            this.data.setError(activity.getString(R.string.erro_data_invalida));
+            return false;
+        }
+
+        return true;
+    }
+
+    private int getIntDataInput(String data){
+        String[] blocosData = data.split("/");
+        String input = blocosData[2] + blocosData[1] + blocosData[0];
+
+        return Integer.parseInt(input);
+    }
+
+    private int getIntDataAtual(){
+        String atual = Datas.dataAtual().replaceAll("-", "");
+        return Integer.parseInt(atual);
     }
 
     private void setSpinner(Contato contato, ArrayAdapter<CharSequence> adapter){

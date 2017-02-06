@@ -23,10 +23,6 @@ public class Email implements Serializable{
         this.email = email;
     }
 
-    public Long getClienteId() {
-        return clienteId;
-    }
-
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
     }
